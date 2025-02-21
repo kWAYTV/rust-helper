@@ -49,7 +49,7 @@ export function Navbar() {
             </Link>
             <ModeToggle />
           </div>
-          <div className='flex justify-center py-2 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:py-0'>
+          <div className='flex justify-center py-2 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:py-0'>
             <div className='flex items-center gap-6'>
               {navItems.map(item => (
                 <Link
