@@ -13,6 +13,7 @@ import {
 import { EXCAVATOR_DATA, QUARRY_DATA } from '@/constants/excavator';
 import { useExcavatorStore } from '@/store/excavator';
 import type { OperationType } from '@/types/excavator';
+
 import { FuelCounter } from './fuel-counter';
 import { ResourceTable } from './resource-table';
 import { TimeDisplay } from './time-display';

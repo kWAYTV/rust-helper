@@ -1,12 +1,20 @@
 'use client';
 
+import { Menu } from 'lucide-react';
 import { motion, useScroll } from 'motion/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 
+import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
-import { Separator } from '@/components/ui/separator';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from '@/components/ui/sheet';
 import { navItems } from '@/constants/navigation';
 import { cn } from '@/lib/utils';
 
@@ -23,6 +31,34 @@ export function Navbar() {
     return () => unsubscribe();
   }, [scrollY]);
 
+  const NavLinks = React.memo(function NavLinks({
+    className
+  }: {
+    className?: string;
+  }) {
+    return (
+      <div
+        className={cn(
+          'flex flex-col gap-4 md:flex-row md:items-center md:gap-6',
+          className
+        )}
+      >
+        {navItems.map(item => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              'text-muted-foreground hover:text-foreground text-sm transition-colors',
+              pathname === item.href && 'text-foreground font-medium'
+            )}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+    );
+  });
+
   return (
     <motion.header
       className={cn(
@@ -35,9 +71,9 @@ export function Navbar() {
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
-      <div className='mx-auto max-w-(--breakpoint-xl) px-4'>
-        <nav className='flex flex-col py-2 md:py-0'>
-          <div className='flex h-12 items-center justify-between md:h-16'>
+      <div className='container mx-auto'>
+        <nav className='flex h-16 items-center justify-between'>
+          <div className='flex items-center gap-6'>
             <Link href='/' className='flex items-center space-x-2'>
               <motion.span
                 className='text-xl font-bold'
@@ -47,30 +83,30 @@ export function Navbar() {
                 Rust Helper
               </motion.span>
             </Link>
-            <ModeToggle />
+            <div className='hidden md:block'>
+              <NavLinks />
+            </div>
           </div>
-          <div className='flex justify-center py-2 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:py-0'>
-            <div className='flex items-center'>
-              {navItems.map((item, index) => (
-                <React.Fragment key={item.href}>
-                  {index > 0 && (
-                    <Separator
-                      orientation='vertical'
-                      className='mx-3 h-4'
-                      decorative
-                    />
-                  )}
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'text-muted-foreground hover:text-foreground text-sm transition-colors',
-                      pathname === item.href && 'text-foreground'
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </React.Fragment>
-              ))}
+
+          <div className='flex items-center gap-4'>
+            <ModeToggle />
+            <div className='md:hidden'>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant='ghost' size='icon'>
+                    <Menu className='h-5 w-5' />
+                    <span className='sr-only'>Toggle menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side='right'>
+                  <SheetHeader>
+                    <SheetTitle>Rust Helper</SheetTitle>
+                  </SheetHeader>
+                  <div className='mt-8'>
+                    <NavLinks className='flex-col items-start' />
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </nav>
@@ -83,9 +119,9 @@ export function Navbar() {
         }}
         transition={{ duration: 0.2 }}
       >
-        <Separator
+        <div
           className={cn(
-            'transition-colors duration-200',
+            'h-px w-full transition-colors duration-200',
             isScrolled ? 'bg-border' : 'bg-transparent'
           )}
         />
