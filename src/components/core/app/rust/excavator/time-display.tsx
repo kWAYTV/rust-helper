@@ -30,7 +30,7 @@ export function TimeDisplay() {
 
   return (
     <div className='flex items-center justify-center'>
-      <span className='text-2xl font-bold tabular-nums tracking-tight'>
+      <span className='text-2xl font-bold tracking-tight tabular-nums'>
         {formatTimeString()}
       </span>
     </div>
