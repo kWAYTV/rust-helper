@@ -61,6 +61,7 @@ export function ExcavatorCalculator() {
                 src={getFuelImage()!}
                 alt='Fuel'
                 fill
+                sizes="(max-width: 768px) 4rem, 4rem"
                 className='object-contain'
               />
             </div>
