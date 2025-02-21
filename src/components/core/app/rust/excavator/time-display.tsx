@@ -1,11 +1,10 @@
-interface TimeDisplayProps {
-  totalSeconds: number;
-}
+import { useExcavatorStore } from '@/store/excavator';
 
-export function TimeDisplay({ totalSeconds }: TimeDisplayProps) {
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+export function TimeDisplay() {
+  const { totalTime } = useExcavatorStore();
+  const hours = Math.floor(totalTime / 3600);
+  const minutes = Math.floor((totalTime % 3600) / 60);
+  const seconds = totalTime % 60;
 
   const formatTimeString = () => {
     const parts = [];

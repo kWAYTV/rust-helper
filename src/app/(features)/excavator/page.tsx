@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
 import { FuelCounter } from '@/components/core/app/rust/excavator/fuel-counter';
 import { ResourceTable } from '@/components/core/app/rust/excavator/resource-table';
@@ -14,39 +13,12 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import {
-  EXCAVATOR_DATA,
-  EXCAVATOR_TIME_PER_FUEL,
-  QUARRY_DATA
-} from '@/constants/excavator';
+import { EXCAVATOR_DATA, QUARRY_DATA } from '@/constants/excavator';
+import { useExcavatorStore } from '@/store/excavator';
 import type { OperationType } from '@/types/excavator';
 
 export default function YieldCalculator() {
-  const [dieselFuel, setDieselFuel] = useState(1);
-  const [selectedOperation, setSelectedOperation] =
-    useState<OperationType>('Excavator');
-  const [timePerFuel, setTimePerFuel] = useState(EXCAVATOR_TIME_PER_FUEL);
-  const [totalTime, setTotalTime] = useState(EXCAVATOR_TIME_PER_FUEL);
-
-  useEffect(() => {
-    if (selectedOperation === 'Excavator') {
-      setTimePerFuel(EXCAVATOR_TIME_PER_FUEL);
-    } else {
-      const quarry = QUARRY_DATA.find(q => q.type === selectedOperation);
-      setTimePerFuel(quarry?.timePerFuelInSeconds ?? EXCAVATOR_TIME_PER_FUEL);
-    }
-  }, [selectedOperation]);
-
-  useEffect(() => {
-    setTotalTime(dieselFuel * timePerFuel);
-  }, [dieselFuel, timePerFuel]);
-
-  const getCurrentData = () => {
-    if (selectedOperation === 'Excavator') {
-      return EXCAVATOR_DATA;
-    }
-    return QUARRY_DATA.find(q => q.type === selectedOperation)?.yield ?? [];
-  };
+  const { selectedOperation, setOperation } = useExcavatorStore();
 
   const getFuelImage = () => {
     if (selectedOperation === 'Excavator') {
@@ -66,9 +38,7 @@ export default function YieldCalculator() {
         <CardContent className='space-y-6'>
           <Select
             value={selectedOperation}
-            onValueChange={value =>
-              setSelectedOperation(value as OperationType)
-            }
+            onValueChange={value => setOperation(value as OperationType)}
           >
             <SelectTrigger>
               <SelectValue placeholder='Select operation type' />
@@ -96,15 +66,12 @@ export default function YieldCalculator() {
                 </span>
               </div>
             )}
-            <FuelCounter value={dieselFuel} onChange={setDieselFuel} />
+            <FuelCounter />
           </div>
 
           <div className='space-y-4'>
-            <ResourceTable
-              resources={getCurrentData()}
-              multiplier={dieselFuel}
-            />
-            <TimeDisplay totalSeconds={totalTime} />
+            <ResourceTable />
+            <TimeDisplay />
           </div>
         </CardContent>
       </Card>

@@ -8,17 +8,10 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table';
-import type { ResourceItem } from '@/types/excavator';
+import { useExcavatorStore } from '@/store/excavator';
 
-interface ResourceTableProps {
-  resources: ResourceItem[];
-  multiplier: number;
-}
-
-export function ResourceTable({ resources, multiplier }: ResourceTableProps) {
-  const filteredResources = resources.filter(
-    item => item.name !== 'Diesel Fuel'
-  );
+export function ResourceTable() {
+  const { resources, dieselFuel } = useExcavatorStore();
 
   return (
     <Table>
@@ -29,7 +22,7 @@ export function ResourceTable({ resources, multiplier }: ResourceTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {filteredResources.map((item, index) => (
+        {resources.map((item, index) => (
           <TableRow key={index}>
             <TableCell className='flex items-center gap-2'>
               <Image
@@ -42,7 +35,7 @@ export function ResourceTable({ resources, multiplier }: ResourceTableProps) {
               {item.name}
             </TableCell>
             <TableCell className='text-primary'>
-              {item.amount * multiplier}
+              {item.amount * dieselFuel}
             </TableCell>
           </TableRow>
         ))}

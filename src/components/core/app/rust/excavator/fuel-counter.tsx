@@ -2,19 +2,16 @@ import type React from 'react';
 import { useRef } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { useExcavatorStore } from '@/store/excavator';
 
-interface FuelCounterProps {
-  value: number;
-  onChange: (value: number) => void;
-}
-
-export function FuelCounter({ value, onChange }: FuelCounterProps) {
+export function FuelCounter() {
+  const { dieselFuel, incrementFuel, decrementFuel } = useExcavatorStore();
   const incrementTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const decrementTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleIncrement = () => {
     const increment = () => {
-      onChange(value + 1);
+      incrementFuel();
       incrementTimeoutRef.current = setTimeout(increment, 300);
     };
     increment();
@@ -22,7 +19,7 @@ export function FuelCounter({ value, onChange }: FuelCounterProps) {
 
   const handleDecrement = () => {
     const decrement = () => {
-      onChange(Math.max(1, value - 1));
+      decrementFuel();
       decrementTimeoutRef.current = setTimeout(decrement, 300);
     };
     decrement();
@@ -41,7 +38,7 @@ export function FuelCounter({ value, onChange }: FuelCounterProps) {
       <Button
         variant='destructive'
         size='icon'
-        disabled={value <= 1}
+        disabled={dieselFuel <= 1}
         onMouseDown={handleDecrement}
         onMouseUp={() => stopCounter(decrementTimeoutRef)}
         onMouseLeave={() => stopCounter(decrementTimeoutRef)}
@@ -49,7 +46,7 @@ export function FuelCounter({ value, onChange }: FuelCounterProps) {
         -
       </Button>
       <span className='min-w-[3ch] text-center text-lg font-medium'>
-        {value}
+        {dieselFuel}
       </span>
       <Button
         variant='default'
