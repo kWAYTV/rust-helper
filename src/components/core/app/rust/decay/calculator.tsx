@@ -1,6 +1,6 @@
 'use client';
 
-import { Clock, Shield } from 'lucide-react';
+import { Clock, Shield, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import {
@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 import { materials } from '@/constants/decay';
 import { calculateDecay } from '@/helpers/decay';
 import type { DecayInfo, Material } from '@/types/decay';
@@ -34,6 +35,13 @@ export function DecayCalculator() {
     decayDateTime: ''
   });
   const [error, setError] = useState<string>('');
+
+  const handleClear = () => {
+    setSelectedMaterial(null);
+    setCurrentHp(0);
+    setDecayInfo({ timeLeft: '', decayDateTime: '' });
+    setError('');
+  };
 
   const handleMaterialChange = (value: string) => {
     const material = materials.find(mat => mat.name === value) || null;
@@ -170,6 +178,19 @@ export function DecayCalculator() {
               <p className='text-destructive text-center text-sm'>{error}</p>
             )}
           </div>
+        </div>
+
+        {/* Clear Button */}
+        <div className='flex justify-center'>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={handleClear}
+            className='text-muted-foreground'
+          >
+            <Trash2 className='mr-2 h-4 w-4' />
+            Clear
+          </Button>
         </div>
 
         {/* Results */}
