@@ -50,18 +50,26 @@ export function Navbar() {
             <ModeToggle />
           </div>
           <div className='flex justify-center py-2 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:py-0'>
-            <div className='flex items-center gap-6'>
-              {navItems.map(item => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'text-muted-foreground hover:text-foreground text-sm transition-colors',
-                    pathname === item.href && 'text-foreground'
+            <div className='flex items-center'>
+              {navItems.map((item, index) => (
+                <React.Fragment key={item.href}>
+                  {index > 0 && (
+                    <Separator
+                      orientation='vertical'
+                      className='mx-3 h-4'
+                      decorative
+                    />
                   )}
-                >
-                  {item.label}
-                </Link>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'text-muted-foreground hover:text-foreground text-sm transition-colors',
+                      pathname === item.href && 'text-foreground'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </React.Fragment>
               ))}
             </div>
           </div>
