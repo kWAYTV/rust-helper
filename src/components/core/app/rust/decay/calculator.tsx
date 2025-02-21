@@ -1,8 +1,9 @@
 'use client';
 
-import { Clock, Shield, Trash2 } from 'lucide-react';
+import { Clock, KeyRound, Shield, Trash2 } from 'lucide-react';
 import { useRef } from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -78,9 +79,25 @@ export function DecayCalculator() {
         <CardDescription className='text-center'>
           Calculate when your walls will decay based on their current HP
         </CardDescription>
-        <div className='text-muted-foreground text-center text-sm'>
-          <p>Keyboard shortcuts:</p>
-          <p>↑/↓: Adjust HP by 100 | C: Clear | Ctrl+Z: Undo | Tab: Navigate fields</p>
+        <div className='flex flex-col items-center gap-2'>
+          <div className='flex items-center gap-1.5'>
+            <KeyRound className='h-3 w-3' />
+            <span className='text-sm text-muted-foreground'>Controls</span>
+          </div>
+          <div className='flex flex-wrap justify-center gap-2'>
+            <Badge variant='outline' className='text-muted-foreground'>
+              ↑/↓: ±100 HP
+            </Badge>
+            <Badge variant='outline' className='text-muted-foreground'>
+              C: Clear
+            </Badge>
+            <Badge variant='outline' className='text-muted-foreground'>
+              Ctrl+Z: Undo
+            </Badge>
+            <Badge variant='outline' className='text-muted-foreground'>
+              Tab: Navigate
+            </Badge>
+          </div>
         </div>
       </CardHeader>
 
