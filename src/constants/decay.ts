@@ -1,4 +1,4 @@
-import type { Material } from '@/types/decay';
+import type { Material } from '@/types/decay/decay';
 
 export const materials: Material[] = [
   { name: 'Twig', maxHp: 10, decayTime: 1 },

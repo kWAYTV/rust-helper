@@ -5,7 +5,7 @@ import {
   EXCAVATOR_TIME_PER_FUEL,
   QUARRY_DATA
 } from '@/constants/excavator';
-import type { OperationType, ResourceItem } from '@/types/excavator';
+import type { OperationType, ResourceItem } from '@/types/excavator/excavator';
 
 interface ExcavatorState {
   dieselFuel: number;

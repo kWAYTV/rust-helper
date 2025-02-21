@@ -1,4 +1,4 @@
-import type { Material } from '@/types/decay';
+import type { Material } from '@/types/decay/decay';
 
 export function calculateDecay(material: Material, hp: number) {
   if (hp > material.maxHp || hp < 0) {

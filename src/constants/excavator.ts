@@ -3,7 +3,7 @@ import {
   findRustImageUrl,
   type QuarryYield,
   type ResourceItem
-} from '@/types/excavator';
+} from '@/types/excavator/excavator';
 
 export const EXCAVATOR_TIME_PER_FUEL = 120; // seconds
 

@@ -1,4 +1,4 @@
-import { type RustImageCategories } from '@/types/rust-images';
+import { type RustImageCategories } from '@/types/rust/rust-images';
 
 export const rustImages: RustImageCategories = {
   walls: [

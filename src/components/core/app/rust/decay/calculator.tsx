@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/select';
 import { materials } from '@/constants/decay';
 import { calculateDecay } from '@/helpers/decay';
-import type { DecayInfo, Material } from '@/types/decay';
+import type { DecayInfo, Material } from '@/types/decay/decay';
 
 export function DecayCalculator() {
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(

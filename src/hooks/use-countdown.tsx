@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { calculateTimeRemaining, getNextFirstThursday } from '@/helpers/date';
-import type { CountdownTime } from '@/types/countdown';
+import type { CountdownTime } from '@/types/countdown/countdown';
 
 export function useCountdown() {
   const [countDownTime, setCountDownTime] = useState<CountdownTime>({
