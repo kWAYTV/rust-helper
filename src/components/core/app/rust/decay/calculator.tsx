@@ -21,7 +21,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { materials } from '@/constants/decay';
-import { calculateDecay } from '@/lib/decay';
+import { calculateDecay } from '@/helpers/decay';
 import type { DecayInfo, Material } from '@/types/decay';
 
 export function DecayCalculator() {
@@ -112,26 +112,27 @@ export function DecayCalculator() {
               </span>
             )}
           </Label>
-          <Select
-            value={selectedMaterial?.name || ''}
-            onValueChange={handleMaterialChange}
-            className='w-full max-w-md'
-          >
-            <SelectTrigger>
-              <SelectValue placeholder='Choose a material' />
-            </SelectTrigger>
-            <SelectContent>
-              {materials.map(material => (
-                <SelectItem
-                  key={material.name}
-                  value={material.name}
-                  className='flex items-center justify-between'
-                >
-                  <span>{material.name}</span>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className='w-full max-w-md'>
+            <Select
+              value={selectedMaterial?.name || ''}
+              onValueChange={handleMaterialChange}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder='Choose a material' />
+              </SelectTrigger>
+              <SelectContent>
+                {materials.map(material => (
+                  <SelectItem
+                    key={material.name}
+                    value={material.name}
+                    className='flex items-center justify-between'
+                  >
+                    <span>{material.name}</span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         {/* Current HP Input */}

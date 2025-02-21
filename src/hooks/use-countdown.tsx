@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { calculateTimeRemaining, getNextFirstThursday } from '@/lib/date';
+import { calculateTimeRemaining, getNextFirstThursday } from '@/helpers/date';
 import type { CountdownTime } from '@/types/countdown';
 
 export function useCountdown() {
