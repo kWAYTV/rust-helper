@@ -10,8 +10,10 @@ export function CountdownTimer() {
   return (
     <div className='flex flex-col items-center gap-4'>
       <div className='text-center'>
-        <h2 className='text-xl font-semibold tracking-tight'>Next Force Wipe</h2>
-        <p className='text-sm text-muted-foreground mt-1'>{timeZone}</p>
+        <h2 className='text-xl font-semibold tracking-tight'>
+          Next Force Wipe
+        </h2>
+        <p className='text-muted-foreground mt-1 text-sm'>{timeZone}</p>
       </div>
       <div className='flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6'>
         {[
