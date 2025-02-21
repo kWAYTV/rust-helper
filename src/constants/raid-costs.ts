@@ -1,6 +1,7 @@
-import { rustImages } from './rust-images';
+import { rustImages } from '@/constants/rust-images';
+import type { RustItem } from '@/types/raid-costs';
 
-export const items = [
+export const raidCosts: RustItem[] = [
   {
     name: 'Armored Wall',
     image: rustImages.walls.find(img => img.name === 'hqwall')?.url || '',

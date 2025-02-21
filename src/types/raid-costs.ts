@@ -1,25 +1,22 @@
 export type DestructionMethod = 'c4' | 'bullets' | 'rockets' | 'satchel';
 
-export interface Item {
+export interface DestructionOptions {
+  c4: number;
+  bullets: number;
+  rockets: number;
+  satchel: number;
+}
+
+export interface RustItem {
   name: string;
   image: string;
-  destructionOptions: {
-    c4: number;
-    bullets: number;
-    rockets: number;
-    satchel: number;
-  };
+  destructionOptions: DestructionOptions;
   category: string;
-  bestOption?: {
-    c4: number;
-    bullets: number;
-    rockets: number;
-    satchel: number;
-  };
+  bestOption?: DestructionOptions;
 }
 
 export interface CollectionItem {
-  item: Item;
+  item: RustItem;
   quantity: number;
 }
 
