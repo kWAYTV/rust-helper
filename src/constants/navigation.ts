@@ -10,6 +10,10 @@ export const navItems: NavItem[] = [
     label: 'Raid Calulator'
   },
   {
+    href: '/excavator',
+    label: 'Excavator'
+  },
+  {
     href: '/force',
     label: 'Force Wipe'
   }
