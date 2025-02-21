@@ -45,9 +45,14 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
 
       // Calculate proportional HP for the new material
       const hpRatio = material.maxHp / state.selectedMaterial.maxHp;
-      const newHp = Math.min(Math.round(state.currentHp * hpRatio), material.maxHp);
+      const newHp = Math.min(
+        Math.round(state.currentHp * hpRatio),
+        material.maxHp
+      );
 
-      toast.info(`Adjusted HP from ${state.currentHp} to ${newHp} for ${material.name}`);
+      toast.info(
+        `Adjusted HP from ${state.currentHp} to ${newHp} for ${material.name}`
+      );
 
       set({
         selectedMaterial: material,
@@ -92,7 +97,9 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
           decayDateTime: ''
         }
       });
-      toast.error(`Maximum HP for ${selectedMaterial.name} is ${selectedMaterial.maxHp}`);
+      toast.error(
+        `Maximum HP for ${selectedMaterial.name} is ${selectedMaterial.maxHp}`
+      );
       return;
     }
 
@@ -112,10 +119,13 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
     set({
       currentHp: hp,
       error: '',
-      decayInfo: hp > 0 ? calculateDecay(selectedMaterial, hp) : {
-        timeLeft: '',
-        decayDateTime: ''
-      }
+      decayInfo:
+        hp > 0
+          ? calculateDecay(selectedMaterial, hp)
+          : {
+              timeLeft: '',
+              decayDateTime: ''
+            }
     });
 
     // Show toast for significant HP changes
@@ -150,7 +160,9 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         error: '',
         decayInfo: calculateDecay(state.previousMaterial, state.previousHp)
       });
-      toast.info(`Reverted back to ${state.previousMaterial.name} with ${state.previousHp} HP`);
+      toast.info(
+        `Reverted back to ${state.previousMaterial.name} with ${state.previousHp} HP`
+      );
     }
   }
 }));
