@@ -6,10 +6,10 @@ export function createMetadata(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: 'https://rust-helper-zeta.vercel.app/',
+      url: 'https://www.scrapcord.com/',
       images:
         'https://1xoi7lid5j.ufs.sh/f/MyoBRstFkzwbRKE7UpMeInHPcZ2sQ83oYij91JBNWEldADu6',
-      siteName: 'rust-helper-zeta.vercel.app',
+      siteName: 'scrapcord',
       ...override.openGraph
     },
     twitter: {
