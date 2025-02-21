@@ -7,18 +7,8 @@ import * as React from 'react';
 
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { Separator } from '@/components/ui/separator';
+import { navItems } from '@/constants/navigation';
 import { cn } from '@/lib/utils';
-
-const navItems = [
-  {
-    href: '/',
-    label: 'Home'
-  },
-  {
-    href: '/countdown',
-    label: 'Force Wipe'
-  }
-];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -46,8 +36,8 @@ export function Navbar() {
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       <div className='mx-auto max-w-(--breakpoint-xl) px-4'>
-        <nav className='flex h-16 items-center justify-between'>
-          <div className='flex items-center gap-6'>
+        <nav className='flex flex-col py-2 md:py-0'>
+          <div className='flex h-12 items-center justify-between md:h-16'>
             <Link href='/' className='flex items-center space-x-2'>
               <motion.span
                 className='text-xl font-bold'
@@ -57,7 +47,10 @@ export function Navbar() {
                 Rust Helper
               </motion.span>
             </Link>
-            <div className='flex items-center gap-4'>
+            <ModeToggle />
+          </div>
+          <div className='flex justify-center py-2 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:py-0'>
+            <div className='flex items-center gap-6'>
               {navItems.map(item => (
                 <Link
                   key={item.href}
@@ -72,7 +65,6 @@ export function Navbar() {
               ))}
             </div>
           </div>
-          <ModeToggle />
         </nav>
       </div>
       <motion.div

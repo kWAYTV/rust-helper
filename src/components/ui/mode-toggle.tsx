@@ -6,8 +6,13 @@ import { useTheme } from 'next-themes';
 import { AnimatePresence, motion } from 'motion/react';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-export function ModeToggle() {
+interface ModeToggleProps {
+  className?: string;
+}
+
+export function ModeToggle({ className }: ModeToggleProps) {
   const { setTheme, theme, systemTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const [mounted, setMounted] = React.useState(false);
@@ -18,7 +23,7 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant='linkHover2' className='flex items-center gap-2 p-2'>
+      <Button variant='linkHover2' className={cn('flex items-center gap-2 p-2', className)}>
         <Loader2 className='h-4 w-4 animate-spin' aria-hidden='true' />
         <span className='capitalize'>Loading</span>
       </Button>
@@ -29,7 +34,7 @@ export function ModeToggle() {
     <Button
       onClick={() => setTheme(currentTheme === 'light' ? 'dark' : 'light')}
       variant='linkHover2'
-      className='flex items-center gap-2 p-2'
+      className={cn('flex items-center gap-2 p-2', className)}
       aria-label='Toggle theme'
     >
       <AnimatePresence mode='wait' initial={false}>
