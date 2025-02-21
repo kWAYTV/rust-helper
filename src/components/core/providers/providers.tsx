@@ -10,18 +10,20 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-        <TooltipProvider>
+    <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+      <TooltipProvider>
+        <div className='relative flex min-h-screen flex-col'>
           <Navbar />
-          <main className='mx-auto flex w-full max-w-(--breakpoint-xl) flex-1 items-center justify-center px-4'>
-            {children}
-          </main>
+          <div className='flex-1'>
+            <div className='container mx-auto flex min-h-[calc(100vh-4rem-4rem)] flex-col'>
+              {children}
+            </div>
+          </div>
           <Footer />
           <BackToTop />
-        </TooltipProvider>
-      </ThemeProvider>
+        </div>
+      </TooltipProvider>
       <Toaster richColors theme='system' />
-    </>
+    </ThemeProvider>
   );
 }

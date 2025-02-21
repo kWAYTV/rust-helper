@@ -3,14 +3,11 @@ import { CountdownTimer } from '@/components/core/app/rust/countdown/timer';
 
 export default function Home() {
   return (
-    <div className='w-full max-w-3xl px-4 py-8'>
-      <div className='space-y-24'>
-        <Hero />
-        {/* Force Wipe Timer */}
-        <section className='flex w-full justify-center'>
-          <CountdownTimer />
-        </section>
-      </div>
+    <div className='flex flex-1 flex-col items-center justify-center gap-24 py-8'>
+      <Hero />
+      <section className='w-full'>
+        <CountdownTimer />
+      </section>
     </div>
   );
 }
