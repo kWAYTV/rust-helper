@@ -1,7 +1,8 @@
 'use client';
 
+import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+
 import type { CountdownUnit as CountdownUnitType } from '@/types/countdown';
 
 export function CountdownUnit({ value, label }: CountdownUnitType) {
@@ -30,7 +31,7 @@ export function CountdownUnit({ value, label }: CountdownUnitType) {
             }}
             className='absolute inset-0 flex items-center justify-center rounded-lg bg-zinc-900 text-white shadow-lg'
           >
-            <motion.span 
+            <motion.span
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
