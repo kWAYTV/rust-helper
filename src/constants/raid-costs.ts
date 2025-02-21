@@ -5,7 +5,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Armored Wall',
     image: rustImages.walls.find(img => img.name === 'hqwall')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 8,
       bullets: 799,
       rockets: 15,
@@ -22,7 +22,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Metal Wall',
     image: rustImages.walls.find(img => img.name === 'metalwall')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 4,
       bullets: 400,
       rockets: 8,
@@ -39,7 +39,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Stone Wall',
     image: rustImages.walls.find(img => img.name === 'stonewall')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 2,
       bullets: 185,
       rockets: 4,
@@ -56,7 +56,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Wooden Wall',
     image: rustImages.walls.find(img => img.name === 'woodenwall')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 49,
       rockets: 2,
@@ -69,7 +69,7 @@ export const raidCosts: RustItem[] = [
     image:
       rustImages.walls.find(img => img.name === 'windowglassreinforced')?.url ||
       '',
-    destructionOptions: {
+    raidOptions: {
       c4: 2,
       bullets: 140,
       rockets: 3,
@@ -88,7 +88,7 @@ export const raidCosts: RustItem[] = [
     image:
       rustImages.walls.find(img => img.name === 'reinforcedglasswindow')?.url ||
       '',
-    destructionOptions: {
+    raidOptions: {
       c4: 2,
       bullets: 200,
       rockets: 4,
@@ -105,7 +105,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Sheet Metal Door',
     image: rustImages.doors.find(img => img.name === 'metaldoor')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 63,
       rockets: 2,
@@ -122,7 +122,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Armored Door',
     image: rustImages.doors.find(img => img.name === 'hqdoor')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 3,
       bullets: 250,
       rockets: 5,
@@ -133,7 +133,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Wooden Door',
     image: rustImages.doors.find(img => img.name === 'woodendoor')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 19,
       rockets: 1,
@@ -150,7 +150,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Garage Door',
     image: rustImages.doors.find(img => img.name === 'garagedoor')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 2,
       bullets: 150,
       rockets: 3,
@@ -167,7 +167,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'Ladder Hatch',
     image: rustImages.doors.find(img => img.name === 'floorladder')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 63,
       rockets: 2,
@@ -179,7 +179,7 @@ export const raidCosts: RustItem[] = [
     name: 'Metal Shop Front',
     image:
       rustImages.walls.find(img => img.name === 'shopfrontmetal')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 3,
       bullets: 300,
       rockets: 6,
@@ -192,7 +192,7 @@ export const raidCosts: RustItem[] = [
     image:
       rustImages.walls.find(img => img.name === 'woodenwallexternalhigh')
         ?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 2,
       bullets: 98,
       rockets: 3,
@@ -205,7 +205,7 @@ export const raidCosts: RustItem[] = [
     image:
       rustImages.walls.find(img => img.name === 'stonewallexternalhigh')?.url ||
       '',
-    destructionOptions: {
+    raidOptions: {
       c4: 2,
       bullets: 185,
       rockets: 4,
@@ -217,7 +217,7 @@ export const raidCosts: RustItem[] = [
     name: 'Auto Turret',
     image:
       rustImages.deployables.find(img => img.name === 'autoturret')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 112,
       rockets: 4,
@@ -229,7 +229,7 @@ export const raidCosts: RustItem[] = [
     name: 'Shotgun Trap',
     image:
       rustImages.deployables.find(img => img.name === 'guntrap')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 34,
       rockets: 2,
@@ -241,7 +241,7 @@ export const raidCosts: RustItem[] = [
     name: 'Flame Turret',
     image:
       rustImages.deployables.find(img => img.name === 'flameturret')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 34,
       rockets: 2,
@@ -252,7 +252,7 @@ export const raidCosts: RustItem[] = [
   {
     name: 'SAM Site',
     image: rustImages.deployables.find(img => img.name === 'sam')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 200,
       rockets: 4,
@@ -264,7 +264,7 @@ export const raidCosts: RustItem[] = [
     name: 'Workbench lvl 1',
     image:
       rustImages.deployables.find(img => img.name === 'workbench1')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 56,
       rockets: 2,
@@ -276,7 +276,7 @@ export const raidCosts: RustItem[] = [
     name: 'Workbench lvl 2',
     image:
       rustImages.deployables.find(img => img.name === 'workbench2')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 1,
       bullets: 173,
       rockets: 4,
@@ -288,7 +288,7 @@ export const raidCosts: RustItem[] = [
     name: 'Workbench lvl 3',
     image:
       rustImages.deployables.find(img => img.name === 'workbench3')?.url || '',
-    destructionOptions: {
+    raidOptions: {
       c4: 2,
       bullets: 259,
       rockets: 6,
@@ -301,7 +301,7 @@ export const raidCosts: RustItem[] = [
     image:
       rustImages.deployables.find(img => img.name === 'vendingmachine')?.url ||
       '',
-    destructionOptions: {
+    raidOptions: {
       c4: 3,
       bullets: 499,
       rockets: 10,
