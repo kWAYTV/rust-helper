@@ -36,7 +36,7 @@ export function EmptyState() {
             duration: 1.5
           }}
         >
-          <ChevronDown className='mx-auto text-muted-foreground/50 h-6 w-6' />
+          <ChevronDown className='text-muted-foreground/50 mx-auto h-6 w-6' />
         </motion.div>
       </motion.div>
     </motion.div>

@@ -9,7 +9,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { useDecayStore } from '@/store/decay';
 
@@ -31,7 +31,7 @@ export function HpInput() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <HelpCircle className='h-4 w-4 text-muted-foreground' />
+              <HelpCircle className='text-muted-foreground h-4 w-4' />
             </TooltipTrigger>
             <TooltipContent>
               <p>Enter the current health points of your structure</p>

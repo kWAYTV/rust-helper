@@ -25,18 +25,18 @@ export function OperationContent() {
         transition={{ delay: 0.3 }}
         className='space-y-6'
       >
-        <div className='rounded-lg border bg-card p-4 shadow-sm'>
+        <div className='bg-card rounded-lg border p-4 shadow-sm'>
           <div className='space-y-4'>
             <div className='flex items-center justify-between'>
               <div className='flex items-center gap-2'>
-                <Timer className='h-5 w-5 text-muted-foreground' />
+                <Timer className='text-muted-foreground h-5 w-5' />
                 <span>Duration:</span>
               </div>
               <TimeDisplay />
             </div>
             <div className='space-y-2'>
               <div className='flex items-center gap-2'>
-                <Clock className='h-5 w-5 text-muted-foreground' />
+                <Clock className='text-muted-foreground h-5 w-5' />
                 <span>Fuel Amount:</span>
               </div>
               <FuelCounter />
@@ -44,7 +44,7 @@ export function OperationContent() {
           </div>
         </div>
 
-        <div className='rounded-lg border bg-card shadow-sm'>
+        <div className='bg-card rounded-lg border shadow-sm'>
           <ResourceTable />
         </div>
       </motion.div>

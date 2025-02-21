@@ -12,21 +12,25 @@ export function DecayInfo() {
     <div className='space-y-4'>
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2'>
-          <Timer className='h-5 w-5 text-muted-foreground' />
+          <Timer className='text-muted-foreground h-5 w-5' />
           <span>Time until decay:</span>
         </div>
-        <span className='font-semibold text-primary'>{decayInfo.timeLeft}</span>
+        <span className='text-primary font-semibold'>{decayInfo.timeLeft}</span>
       </div>
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2'>
-          <Clock className='h-5 w-5 text-muted-foreground' />
+          <Clock className='text-muted-foreground h-5 w-5' />
           <span>Decay date:</span>
         </div>
-        <span className='font-medium text-muted-foreground'>{decayInfo.decayDateTime}</span>
+        <span className='text-muted-foreground font-medium'>
+          {decayInfo.decayDateTime}
+        </span>
       </div>
-      <Progress 
-        value={selectedMaterial ? (currentHp / selectedMaterial.maxHp) * 100 : 0} 
-        className='h-2' 
+      <Progress
+        value={
+          selectedMaterial ? (currentHp / selectedMaterial.maxHp) * 100 : 0
+        }
+        className='h-2'
       />
     </div>
   );

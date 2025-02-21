@@ -2,6 +2,9 @@
 
 import { motion } from 'motion/react';
 
+import { DecayInfo } from '@/components/core/app/rust/decay/decay-info';
+import { HpInput } from '@/components/core/app/rust/decay/hp-input';
+import { MaterialSelector } from '@/components/core/app/rust/decay/material-selector';
 import {
   Card,
   CardContent,
@@ -9,9 +12,6 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { DecayInfo } from '@/components/core/app/rust/decay/decay-info';
-import { HpInput } from '@/components/core/app/rust/decay/hp-input';
-import { MaterialSelector } from '@/components/core/app/rust/decay/material-selector';
 import { useDecayStore } from '@/store/decay';
 
 export function DecayCalculator() {

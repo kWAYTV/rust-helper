@@ -15,7 +15,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { useExcavatorStore } from '@/store/excavator';
 import type { OperationType } from '@/types/excavator/excavator';
@@ -23,7 +23,12 @@ import type { OperationType } from '@/types/excavator/excavator';
 export function OperationSelector() {
   const { selectedOperation, setOperation } = useExcavatorStore();
 
-  const operations: OperationType[] = ['Excavator', 'HQM Quarry', 'Sulfur Quarry', 'Stone Quarry'];
+  const operations: OperationType[] = [
+    'Excavator',
+    'HQM Quarry',
+    'Sulfur Quarry',
+    'Stone Quarry'
+  ];
 
   return (
     <div className='space-y-1.5'>
@@ -32,7 +37,7 @@ export function OperationSelector() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <HelpCircle className='h-4 w-4 text-muted-foreground' />
+              <HelpCircle className='text-muted-foreground h-4 w-4' />
             </TooltipTrigger>
             <TooltipContent>
               <p>Choose your mining operation to calculate yields</p>

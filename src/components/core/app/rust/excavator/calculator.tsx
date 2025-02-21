@@ -2,10 +2,16 @@
 
 import { AnimatePresence, motion } from 'motion/react';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/components/core/app/rust/excavator/empty-state';
 import { OperationContent } from '@/components/core/app/rust/excavator/operation-content';
 import { OperationSelector } from '@/components/core/app/rust/excavator/operation-selector';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import { useExcavatorStore } from '@/store/excavator';
 
 export function ExcavatorCalculator() {
