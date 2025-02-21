@@ -40,7 +40,7 @@ export function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              NextJS Template
+              Rust Helper
             </motion.span>
           </Link>
           <ModeToggle />

@@ -33,9 +33,9 @@ export default function RootLayout({
 
 export const metadata = createMetadata({
   title: {
-    default: 'NextJS Template',
-    template: '%s | NextJS Template'
+    default: 'Rust Helper',
+    template: '%s | Rust Helper'
   },
   description:
-    'A modern Next.js template with TypeScript, Tailwind CSS, and more.'
+    'Your handy Rust game helper for raids and offlines'
 });
