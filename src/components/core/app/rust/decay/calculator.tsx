@@ -1,9 +1,7 @@
 'use client';
 
-import { Clock, KeyRound, Shield, Trash2 } from 'lucide-react';
-import { useRef } from 'react';
+import { Clock, Shield, Trash2 } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -23,7 +21,6 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { materials } from '@/constants/decay';
-import { useCalculatorKeyboard } from '@/hooks/use-calculator-keyboard';
 import { useDecayStore } from '@/store/decay';
 
 export function DecayCalculator() {
@@ -40,37 +37,6 @@ export function DecayCalculator() {
     undo
   } = useDecayStore();
 
-  // Refs for focusing elements
-  const materialSelectRef = useRef<HTMLButtonElement>(null);
-  const hpInputRef = useRef<HTMLInputElement>(null);
-
-  // Setup keyboard shortcuts
-  useCalculatorKeyboard({
-    onClear: clear,
-    onUndo: previousMaterial && previousHp > 0 ? undo : undefined,
-    onIncrement: () =>
-      currentHp < (selectedMaterial?.maxHp || 0) && setHp(currentHp + 100),
-    onDecrement: () => currentHp > 0 && setHp(currentHp - 100),
-    onFocusNext: () => {
-      if (document.activeElement === materialSelectRef.current) {
-        hpInputRef.current?.focus();
-      } else if (document.activeElement === hpInputRef.current) {
-        materialSelectRef.current?.focus();
-      } else {
-        materialSelectRef.current?.focus();
-      }
-    },
-    onFocusPrev: () => {
-      if (document.activeElement === materialSelectRef.current) {
-        hpInputRef.current?.focus();
-      } else if (document.activeElement === hpInputRef.current) {
-        materialSelectRef.current?.focus();
-      } else {
-        hpInputRef.current?.focus();
-      }
-    }
-  });
-
   return (
     <Card className='w-full'>
       <CardHeader className='space-y-2'>
@@ -80,26 +46,6 @@ export function DecayCalculator() {
         <CardDescription className='text-center'>
           Calculate when your walls will decay based on their current HP
         </CardDescription>
-        <div className='flex flex-col items-center gap-2'>
-          <div className='flex items-center gap-1.5'>
-            <KeyRound className='h-3 w-3' />
-            <span className='text-muted-foreground text-sm'>Controls</span>
-          </div>
-          <div className='flex flex-wrap justify-center gap-2'>
-            <Badge variant='outline' className='text-muted-foreground'>
-              ↑/↓: ±100 HP
-            </Badge>
-            <Badge variant='outline' className='text-muted-foreground'>
-              C: Clear
-            </Badge>
-            <Badge variant='outline' className='text-muted-foreground'>
-              Ctrl+Z: Undo
-            </Badge>
-            <Badge variant='outline' className='text-muted-foreground'>
-              Tab: Navigate
-            </Badge>
-          </div>
-        </div>
       </CardHeader>
 
       <CardContent className='space-y-8'>
@@ -112,7 +58,7 @@ export function DecayCalculator() {
                   value={selectedMaterial?.name}
                   onValueChange={setMaterial}
                 >
-                  <SelectTrigger id='material' ref={materialSelectRef}>
+                  <SelectTrigger id='material'>
                     <SelectValue placeholder='Select material type' />
                   </SelectTrigger>
                   <SelectContent>
@@ -129,7 +75,7 @@ export function DecayCalculator() {
                   variant='outline'
                   size='icon'
                   onClick={undo}
-                  title='Undo material change (Ctrl+Z)'
+                  title='Undo material change'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -165,7 +111,6 @@ export function DecayCalculator() {
                       value={currentHp || ''}
                       onChange={e => setHp(parseInt(e.target.value) || 0)}
                       className='w-full'
-                      ref={hpInputRef}
                     />
                   </div>
                   <Button
@@ -173,7 +118,6 @@ export function DecayCalculator() {
                     size='icon'
                     onClick={clear}
                     className='shrink-0'
-                    title='Clear calculator (C)'
                   >
                     <Trash2 className='h-4 w-4' />
                   </Button>
