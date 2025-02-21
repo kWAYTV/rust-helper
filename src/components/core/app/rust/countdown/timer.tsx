@@ -8,7 +8,7 @@ export function CountdownTimer() {
 
   return (
     <div className='flex flex-col items-center gap-4'>
-      <h1 className='text-2xl font-bold tracking-wider uppercase'>Next Force Wipe</h1>
+      <h2 className='text-xl font-semibold tracking-tight'>Next Force Wipe</h2>
       <div className='flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6'>
         {[
           { value: countdown.days, label: 'days' },

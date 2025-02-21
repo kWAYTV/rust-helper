@@ -7,14 +7,10 @@ export const navItems: NavItem[] = [
   },
   {
     href: '/raid',
-    label: 'Raid Calulator'
+    label: 'Raid Calculator'
   },
   {
     href: '/excavator',
     label: 'Excavator'
-  },
-  {
-    href: '/force',
-    label: 'Force Wipe'
   }
 ];
