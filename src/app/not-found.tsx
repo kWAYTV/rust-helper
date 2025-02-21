@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 export default function NotFound() {
   return (
-    <div className='flex flex-col items-center justify-center space-y-4 text-center'>
+    <div className='flex flex-1 flex-col items-center justify-center gap-4 py-8'>
       <motion.div
         className='space-y-2'
         initial={{ opacity: 0, y: 20 }}
@@ -19,7 +19,7 @@ export default function NotFound() {
       </motion.div>
 
       <motion.p
-        className='text-muted-foreground max-w-md'
+        className='max-w-md text-muted-foreground'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}

@@ -9,7 +9,7 @@ export const metadata = createMetadata({
 
 export default function DecayPage() {
   return (
-    <div className='container py-8'>
+    <div className='flex flex-1 items-start justify-center py-8'>
       <DecayCalculator />
     </div>
   );

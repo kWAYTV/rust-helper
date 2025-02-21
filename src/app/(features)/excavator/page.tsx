@@ -9,8 +9,8 @@ export const metadata = createMetadata({
 
 export default function ExcavatorPage() {
   return (
-    <main className='container mx-auto py-8'>
+    <div className='flex flex-1 items-start justify-center py-8'>
       <ExcavatorCalculator />
-    </main>
+    </div>
   );
 }
