@@ -1,45 +1,38 @@
 'use client';
 
-import { motion } from 'motion/react';
 import Link from 'next/link';
-
-import { Separator } from '@/components/ui/separator';
-import { githubProfileUrl, githubRepoUrl } from '@/lib/metadata';
 
 export function Footer() {
   return (
-    <motion.footer
-      className='w-full'
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.2 }}
-    >
-      <Separator />
-      <div className='mx-auto max-w-(--breakpoint-xl) px-4'>
-        <div className='flex h-16 items-center justify-center'>
-          <p className='text-muted-foreground text-center text-sm'>
-            Built by{' '}
-            <Link
-              href={githubProfileUrl}
-              target='_blank'
-              rel='noreferrer'
-              className='font-medium underline underline-offset-4'
-            >
-              kWAY
-            </Link>
-            . The source code is available on{' '}
-            <Link
-              href={githubRepoUrl}
-              target='_blank'
-              rel='noreferrer'
-              className='font-medium underline underline-offset-4'
-            >
-              GitHub
-            </Link>
-            .
-          </p>
+    <footer className='bg-background/95 w-full border-t'>
+      <div className='text-muted-foreground/80 mx-auto max-w-[900px] py-2 text-center text-[11px]'>
+        <div>
+          Built by{' '}
+          <Link
+            href='https://github.com/kWAYTV'
+            target='_blank'
+            rel='noreferrer'
+            className='text-foreground/70 hover:text-foreground'
+          >
+            kWAY
+          </Link>
+          . The source code is available on{' '}
+          <Link
+            href='https://github.com/kWAYTV/rust-helper'
+            target='_blank'
+            rel='noreferrer'
+            className='text-foreground/70 hover:text-foreground'
+          >
+            GitHub
+          </Link>
+          .
+        </div>
+        <div className='mt-1'>
+          This site is not affiliated with or endorsed by Facepunch Studios or
+          the Rust game. All game assets, logos, and trademarks are the property
+          of their respective owners.
         </div>
       </div>
-    </motion.footer>
+    </footer>
   );
 }
