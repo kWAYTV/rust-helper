@@ -1,5 +1,5 @@
-import { create } from 'zustand';
 import { toast } from 'sonner';
+import { create } from 'zustand';
 
 import {
   EXCAVATOR_DATA,
@@ -21,7 +21,7 @@ interface ExcavatorState {
   clear: () => void;
 }
 
-export const useExcavatorStore = create<ExcavatorState>((set, get) => ({
+export const useExcavatorStore = create<ExcavatorState>(set => ({
   dieselFuel: 1,
   selectedOperation: 'Excavator',
   timePerFuel: EXCAVATOR_TIME_PER_FUEL,
@@ -74,11 +74,20 @@ export const useExcavatorStore = create<ExcavatorState>((set, get) => ({
         toast.error('Minimum fuel amount reached');
         return state;
       }
-      return { dieselFuel: state.dieselFuel - 1, totalTime: (state.dieselFuel - 1) * state.timePerFuel };
+      return {
+        dieselFuel: state.dieselFuel - 1,
+        totalTime: (state.dieselFuel - 1) * state.timePerFuel
+      };
     }),
 
   clear: () => {
-    set({ dieselFuel: 1, selectedOperation: 'Excavator', timePerFuel: EXCAVATOR_TIME_PER_FUEL, totalTime: EXCAVATOR_TIME_PER_FUEL, resources: EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel') });
+    set({
+      dieselFuel: 1,
+      selectedOperation: 'Excavator',
+      timePerFuel: EXCAVATOR_TIME_PER_FUEL,
+      totalTime: EXCAVATOR_TIME_PER_FUEL,
+      resources: EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel')
+    });
     toast.info('Reset excavator calculator');
   }
 }));
