@@ -23,6 +23,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const { scrollY } = useScroll();
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
     const unsubscribe = scrollY.on('change', (latest: number) => {
@@ -32,10 +33,17 @@ export function Navbar() {
     return () => unsubscribe();
   }, [scrollY]);
 
+  // Close sheet when route changes
+  React.useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   const NavLinks = React.memo(function NavLinks({
-    className
+    className,
+    onClick
   }: {
     className?: string;
+    onClick?: () => void;
   }) {
     return (
       <div
@@ -48,8 +56,10 @@ export function Navbar() {
           <React.Fragment key={item.href}>
             <Link
               href={item.href}
+              onClick={onClick}
               className={cn(
                 'text-muted-foreground hover:text-foreground text-sm transition-colors',
+                'flex w-full items-center py-2 md:w-auto md:py-0',
                 pathname === item.href && 'text-foreground font-medium'
               )}
             >
@@ -82,7 +92,7 @@ export function Navbar() {
       <div className='container mx-auto'>
         <nav className='flex h-16 items-center justify-between'>
           <div className='flex items-center gap-6'>
-            <Link href='/' className='flex items-center space-x-2'>
+            <Link href='/' className='flex items-center pl-1 sm:pl-0'>
               <motion.span
                 className='text-xl font-bold'
                 whileHover={{ scale: 1.05 }}
@@ -99,23 +109,23 @@ export function Navbar() {
           <div className='flex items-center gap-4'>
             <ModeToggle />
             <div className='md:hidden'>
-              <Sheet>
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
                   <Button variant='ghost' size='icon'>
                     <Menu className='h-5 w-5' />
                     <span className='sr-only'>Toggle menu</span>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side='right'>
-                  <SheetHeader>
-                    <SheetTitle>Rust Helper</SheetTitle>
-                    <p className='text-muted-foreground text-sm'>
-                      Navigation menu for quick access to all features
-                    </p>
+                <SheetContent side='right' className='w-full sm:max-w-sm'>
+                  <SheetHeader className='text-left'>
+                    <SheetTitle>Navigation</SheetTitle>
                   </SheetHeader>
-                  <div className='mt-8'>
-                    <NavLinks className='flex-col items-start' />
-                  </div>
+                  <nav className='mt-6'>
+                    <NavLinks
+                      className='flex-col items-start gap-1'
+                      onClick={() => setIsOpen(false)}
+                    />
+                  </nav>
                 </SheetContent>
               </Sheet>
             </div>
