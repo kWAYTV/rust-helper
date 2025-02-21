@@ -7,7 +7,7 @@ export default function Home() {
       <div className='space-y-24'>
         <Hero />
         {/* Force Wipe Timer */}
-        <section className='w-full flex justify-center'>
+        <section className='flex w-full justify-center'>
           <CountdownTimer />
         </section>
       </div>

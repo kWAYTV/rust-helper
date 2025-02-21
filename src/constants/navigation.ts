@@ -12,5 +12,9 @@ export const navItems: NavItem[] = [
   {
     href: '/excavator',
     label: 'Excavator'
+  },
+  {
+    href: '/decay',
+    label: 'Decay Calculator'
   }
 ];

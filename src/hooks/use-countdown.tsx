@@ -16,14 +16,14 @@ export function useCountdown() {
   useEffect(() => {
     // Get initial target date
     const targetDate = getNextFirstThursday();
-    
+
     function updateCountdown() {
       setCountDownTime(calculateTimeRemaining(targetDate));
     }
 
     // Update immediately
     updateCountdown();
-    
+
     // Then update every second
     const interval = setInterval(updateCountdown, 1000);
     return () => clearInterval(interval);
