@@ -31,6 +31,8 @@ export function ResourceTable() {
                 width={40}
                 alt={item.name}
                 className='object-contain'
+                sizes="40px"
+                priority={index < 2}
               />
               {item.name}
             </TableCell>
