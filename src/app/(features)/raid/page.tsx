@@ -1,8 +1,12 @@
+import { Suspense } from 'react';
+
+import RaidCalculator from '@/components/core/app/rust/raid/raid-calculator';
+import RaidCalculatorSkeleton from '@/components/core/app/rust/raid/raid-calculator-skeleton';
 import { createMetadata } from '@/lib/metadata';
 
 export const metadata = createMetadata({
   title: 'Raid Costs Calculator',
-  description: 'Calculate the costs for raids'
+  description: 'Plan and calculate resource costs for raids in Rust'
 });
 
 export default function RaidPage() {
@@ -11,8 +15,13 @@ export default function RaidPage() {
       <div className='text-center'>
         <h1 className='text-4xl font-bold'>Raid Costs Calculator</h1>
         <p className='text-muted-foreground mt-4'>
-          Calculate the costs for raids
+          Plan your raids and calculate total resource costs
         </p>
+      </div>
+      <div className='w-full max-w-6xl'>
+        <Suspense fallback={<RaidCalculatorSkeleton />}>
+          <RaidCalculator />
+        </Suspense>
       </div>
     </div>
   );
