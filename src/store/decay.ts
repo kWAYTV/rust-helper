@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { create } from 'zustand';
 
 import { materials } from '@/constants/decay';
@@ -44,10 +45,9 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
 
       // Calculate proportional HP for the new material
       const hpRatio = material.maxHp / state.selectedMaterial.maxHp;
-      const newHp = Math.min(
-        Math.round(state.currentHp * hpRatio),
-        material.maxHp
-      );
+      const newHp = Math.min(Math.round(state.currentHp * hpRatio), material.maxHp);
+
+      toast.info(`Adjusted HP from ${state.currentHp} to ${newHp} for ${material.name}`);
 
       set({
         selectedMaterial: material,
@@ -67,6 +67,9 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
           decayDateTime: ''
         }
       });
+      if (material) {
+        toast.info(`Selected ${material.name}`);
+      }
     }
   },
 
@@ -76,6 +79,7 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
 
     if (!selectedMaterial) {
       set({ currentHp: 0, error: 'Please select a material first' });
+      toast.error('Please select a material first');
       return;
     }
 
@@ -88,6 +92,7 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
           decayDateTime: ''
         }
       });
+      toast.error(`Maximum HP for ${selectedMaterial.name} is ${selectedMaterial.maxHp}`);
       return;
     }
 
@@ -100,20 +105,23 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
           decayDateTime: ''
         }
       });
+      toast.error('HP cannot be negative');
       return;
     }
 
     set({
       currentHp: hp,
       error: '',
-      decayInfo:
-        hp > 0
-          ? calculateDecay(selectedMaterial, hp)
-          : {
-              timeLeft: '',
-              decayDateTime: ''
-            }
+      decayInfo: hp > 0 ? calculateDecay(selectedMaterial, hp) : {
+        timeLeft: '',
+        decayDateTime: ''
+      }
     });
+
+    // Show toast for significant HP changes
+    if (hp % 500 === 0 && hp > 0) {
+      toast.info(`Set HP to ${hp}`);
+    }
   },
 
   clear: () => {
@@ -128,6 +136,7 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
       },
       error: ''
     });
+    toast.info('Reset decay calculator');
   },
 
   undo: () => {
@@ -141,6 +150,7 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         error: '',
         decayInfo: calculateDecay(state.previousMaterial, state.previousHp)
       });
+      toast.info(`Reverted back to ${state.previousMaterial.name} with ${state.previousHp} HP`);
     }
   }
 }));
