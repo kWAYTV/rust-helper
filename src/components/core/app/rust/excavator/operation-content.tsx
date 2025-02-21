@@ -7,6 +7,7 @@ import { FuelCounter } from '@/components/core/app/rust/excavator/fuel-counter';
 import { FuelImage } from '@/components/core/app/rust/excavator/fuel-image';
 import { ResourceTable } from '@/components/core/app/rust/excavator/resource-table';
 import { TimeDisplay } from '@/components/core/app/rust/excavator/time-display';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function OperationContent() {
   return (
@@ -17,36 +18,50 @@ export function OperationContent() {
       exit={{ opacity: 0, y: -20 }}
       className='space-y-6'
     >
-      <FuelImage />
+      <div className='flex items-center justify-center'>
+        <FuelImage />
+      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className='space-y-6'
+        className='grid gap-6 sm:grid-cols-2'
       >
-        <div className='bg-card rounded-lg border p-4 shadow-sm'>
-          <div className='space-y-4'>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-2'>
-                <Timer className='text-muted-foreground h-5 w-5' />
-                <span>Duration:</span>
-              </div>
-              <TimeDisplay />
-            </div>
-            <div className='space-y-2'>
-              <div className='flex items-center gap-2'>
-                <Clock className='text-muted-foreground h-5 w-5' />
-                <span>Fuel Amount:</span>
-              </div>
-              <FuelCounter />
-            </div>
-          </div>
-        </div>
+        <Card>
+          <CardHeader className='pb-3'>
+            <CardTitle className='flex items-center gap-2 text-base font-medium'>
+              <Timer className='text-muted-foreground h-5 w-5' />
+              Duration
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TimeDisplay />
+          </CardContent>
+        </Card>
 
-        <div className='bg-card rounded-lg border shadow-sm'>
-          <ResourceTable />
-        </div>
+        <Card>
+          <CardHeader className='pb-3'>
+            <CardTitle className='flex items-center gap-2 text-base font-medium'>
+              <Clock className='text-muted-foreground h-5 w-5' />
+              Fuel Amount
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <FuelCounter />
+          </CardContent>
+        </Card>
+
+        <Card className='sm:col-span-2'>
+          <CardHeader className='pb-3'>
+            <CardTitle className='text-base font-medium'>
+              Resource Yields
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResourceTable />
+          </CardContent>
+        </Card>
       </motion.div>
     </motion.div>
   );
