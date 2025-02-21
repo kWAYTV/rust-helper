@@ -6,6 +6,7 @@ import { FuelCounter } from '@/components/core/app/rust/excavator/fuel-counter';
 import { ResourceTable } from '@/components/core/app/rust/excavator/resource-table';
 import { TimeDisplay } from '@/components/core/app/rust/excavator/time-display';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -28,45 +29,48 @@ export function ExcavatorCalculator() {
   };
 
   return (
-    <Card className='mx-auto max-w-2xl'>
-      <CardHeader>
-        <CardTitle className='text-center'>Resource Yield Calculator</CardTitle>
+    <Card className='w-full'>
+      <CardHeader className='space-y-2'>
+        <CardTitle className='text-center text-2xl sm:text-3xl'>
+          Resource Yield Calculator
+        </CardTitle>
       </CardHeader>
-      <CardContent className='space-y-6'>
-        <Select
-          value={selectedOperation}
-          onValueChange={value => setOperation(value as OperationType)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder='Select operation type' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='Excavator'>Excavator</SelectItem>
-            <SelectItem value='HQM Quarry'>HQM Quarry</SelectItem>
-            <SelectItem value='Sulfur Quarry'>Sulfur Quarry</SelectItem>
-            <SelectItem value='Stone Quarry'>Stone Quarry</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <div className='flex flex-col items-center gap-2'>
-          {getFuelImage() && (
-            <div className='text-center'>
-              <Image
-                src={getFuelImage()! || '/placeholder.svg'}
-                height={60}
-                width={60}
-                alt='Fuel'
-                className='mx-auto'
-              />
-              <span className='text-muted-foreground text-sm'>Diesel Fuel</span>
-            </div>
-          )}
-          <FuelCounter />
+      <CardContent className='space-y-8'>
+        <div className='space-y-2'>
+          <Label htmlFor='operation-type'>Operation Type</Label>
+          <Select
+            value={selectedOperation}
+            onValueChange={value => setOperation(value as OperationType)}
+          >
+            <SelectTrigger id='operation-type'>
+              <SelectValue placeholder='Select operation type' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='Excavator'>Excavator</SelectItem>
+              <SelectItem value='HQM Quarry'>HQM Quarry</SelectItem>
+              <SelectItem value='Sulfur Quarry'>Sulfur Quarry</SelectItem>
+              <SelectItem value='Stone Quarry'>Stone Quarry</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        <div className='space-y-4'>
-          <ResourceTable />
-          <TimeDisplay />
+        <div className='flex flex-col items-center gap-6'>
+          {getFuelImage() && (
+            <div className='relative h-16 w-16'>
+              <Image
+                src={getFuelImage()!}
+                alt='Fuel'
+                fill
+                className='object-contain'
+              />
+            </div>
+          )}
+
+          <div className='w-full space-y-8'>
+            <FuelCounter />
+            <TimeDisplay />
+            <ResourceTable />
+          </div>
         </div>
       </CardContent>
     </Card>

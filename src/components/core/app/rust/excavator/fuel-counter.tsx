@@ -1,3 +1,4 @@
+import { Minus, Plus } from 'lucide-react';
 import type React from 'react';
 import { useRef } from 'react';
 
@@ -34,28 +35,28 @@ export function FuelCounter() {
   };
 
   return (
-    <div className='flex items-center gap-4'>
+    <div className='flex items-center justify-center gap-4'>
       <Button
-        variant='destructive'
+        variant='outline'
         size='icon'
         disabled={dieselFuel <= 1}
         onMouseDown={handleDecrement}
         onMouseUp={() => stopCounter(decrementTimeoutRef)}
         onMouseLeave={() => stopCounter(decrementTimeoutRef)}
       >
-        -
+        <Minus className='h-4 w-4' />
       </Button>
       <span className='min-w-[3ch] text-center text-lg font-medium'>
         {dieselFuel}
       </span>
       <Button
-        variant='default'
+        variant='outline'
         size='icon'
         onMouseDown={handleIncrement}
         onMouseUp={() => stopCounter(incrementTimeoutRef)}
         onMouseLeave={() => stopCounter(incrementTimeoutRef)}
       >
-        +
+        <Plus className='h-4 w-4' />
       </Button>
     </div>
   );
