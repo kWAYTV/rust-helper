@@ -6,11 +6,11 @@ export const navItems: NavItem[] = [
     label: 'Home'
   },
   {
-    href: '/force',
-    label: 'Force Wipe'
-  },
-  {
     href: '/raid',
     label: 'Raid Calulator'
+  },
+  {
+    href: '/force',
+    label: 'Force Wipe'
   }
 ];
