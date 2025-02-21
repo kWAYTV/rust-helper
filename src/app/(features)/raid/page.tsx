@@ -10,7 +10,7 @@ export const metadata = createMetadata({
 
 export default function RaidPage() {
   return (
-    <div className='flex flex-1 items-center justify-center py-8'>
+    <div className='flex flex-1 items-center justify-center px-4 py-8 sm:px-6 lg:px-8'>
       <Card className='w-full max-w-lg'>
         <CardContent className='flex flex-col items-center gap-6 pt-6'>
           <div className='flex h-20 w-20 items-center justify-center rounded-full bg-primary/10'>
