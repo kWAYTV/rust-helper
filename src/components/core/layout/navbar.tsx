@@ -8,6 +8,7 @@ import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
+import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
   SheetContent,
@@ -43,17 +44,24 @@ export function Navbar() {
           className
         )}
       >
-        {navItems.map(item => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={cn(
-              'text-muted-foreground hover:text-foreground text-sm transition-colors',
-              pathname === item.href && 'text-foreground font-medium'
+        {navItems.map((item, index) => (
+          <React.Fragment key={item.href}>
+            <Link
+              href={item.href}
+              className={cn(
+                'text-muted-foreground hover:text-foreground text-sm transition-colors',
+                pathname === item.href && 'text-foreground font-medium'
+              )}
+            >
+              {item.label}
+            </Link>
+            {index < navItems.length - 1 && (
+              <Separator
+                orientation='vertical'
+                className='hidden h-4 md:block'
+              />
             )}
-          >
-            {item.label}
-          </Link>
+          </React.Fragment>
         ))}
       </div>
     );
@@ -101,6 +109,9 @@ export function Navbar() {
                 <SheetContent side='right'>
                   <SheetHeader>
                     <SheetTitle>Rust Helper</SheetTitle>
+                    <p className="text-sm text-muted-foreground">
+                      Navigation menu for quick access to all features
+                    </p>
                   </SheetHeader>
                   <div className='mt-8'>
                     <NavLinks className='flex-col items-start' />
@@ -111,21 +122,7 @@ export function Navbar() {
           </div>
         </nav>
       </div>
-      <motion.div
-        className='w-full'
-        animate={{
-          opacity: isScrolled ? 1 : 0,
-          height: isScrolled ? '1px' : '0px'
-        }}
-        transition={{ duration: 0.2 }}
-      >
-        <div
-          className={cn(
-            'h-px w-full transition-colors duration-200',
-            isScrolled ? 'bg-border' : 'bg-transparent'
-          )}
-        />
-      </motion.div>
+      {isScrolled && <Separator />}
     </motion.header>
   );
 }
