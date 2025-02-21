@@ -6,9 +6,9 @@ export function createMetadata(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: 'https://perc.dev',
-      images: 'https://perc.dev/og.png',
-      siteName: 'perc.dev',
+      url: 'https://rust-helper-zeta.vercel.app/',
+      images: '',
+      siteName: 'rust-helper-zeta.vercel.app',
       ...override.openGraph
     },
     twitter: {
@@ -16,7 +16,7 @@ export function createMetadata(override: Metadata): Metadata {
       creator: '@ogeperc',
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      images: 'https://perc.dev/og.png',
+      images: '',
       ...override.twitter
     }
   };
