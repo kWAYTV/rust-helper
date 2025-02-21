@@ -3,6 +3,7 @@
 import { Clock, Shield, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -20,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
 import { materials } from '@/constants/decay';
 import { calculateDecay } from '@/helpers/decay';
 import type { DecayInfo, Material } from '@/types/decay';
@@ -30,6 +30,7 @@ export function DecayCalculator() {
     null
   );
   const [currentHp, setCurrentHp] = useState<number>(0);
+  const [previousHp, setPreviousHp] = useState<number>(0);
   const [decayInfo, setDecayInfo] = useState<DecayInfo>({
     timeLeft: '',
     decayDateTime: ''
@@ -39,6 +40,7 @@ export function DecayCalculator() {
   const handleClear = () => {
     setSelectedMaterial(null);
     setCurrentHp(0);
+    setPreviousHp(0);
     setDecayInfo({ timeLeft: '', decayDateTime: '' });
     setError('');
   };
@@ -48,17 +50,25 @@ export function DecayCalculator() {
     setSelectedMaterial(material);
 
     if (material) {
-      if (currentHp > material.maxHp) {
-        setCurrentHp(0);
+      // If we have a previous HP value, try to use it
+      const newHp = previousHp > 0 ? previousHp : currentHp;
+
+      if (newHp > material.maxHp) {
+        // If the HP would exceed the new material's max, set to max HP
+        setCurrentHp(material.maxHp);
+        setPreviousHp(newHp);
         setError(
-          `HP cannot exceed max HP of ${material.maxHp} for selected material.`
+          `HP was reduced to ${material.maxHp} (maximum for ${material.name})`
         );
-        setDecayInfo({ timeLeft: '', decayDateTime: '' });
       } else {
+        // Keep the previous/current HP if it's valid for the new material
+        setCurrentHp(newHp);
+        setPreviousHp(newHp);
         setError('');
       }
     } else {
       setCurrentHp(0);
+      setPreviousHp(0);
       setError('');
       setDecayInfo({ timeLeft: '', decayDateTime: '' });
     }
@@ -69,6 +79,7 @@ export function DecayCalculator() {
 
     if (value === '') {
       setCurrentHp(0);
+      setPreviousHp(0);
       setError('');
       setDecayInfo({ timeLeft: '', decayDateTime: '' });
     } else {
@@ -82,8 +93,9 @@ export function DecayCalculator() {
         );
         setDecayInfo({ timeLeft: '', decayDateTime: '' });
       } else {
-        setError('');
         setCurrentHp(hp);
+        setPreviousHp(hp);
+        setError('');
       }
     }
   };
