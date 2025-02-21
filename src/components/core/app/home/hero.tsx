@@ -3,8 +3,7 @@ export default function Hero() {
     <div className='text-center'>
       <h1 className='text-4xl font-bold'>Welcome to Rust Helper</h1>
       <p className='text-muted-foreground mt-4'>
-        Get started by editing{' '}
-        <code className='font-mono'>src/app/(home)/page.tsx</code>
+        Your AIO helper tool for the Rust game.
       </p>
     </div>
   );
