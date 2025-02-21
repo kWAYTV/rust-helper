@@ -36,6 +36,5 @@ export const metadata = createMetadata({
     default: 'Rust Helper',
     template: '%s | Rust Helper'
   },
-  description:
-    'Your handy Rust game helper for raids and offlines'
+  description: 'Your handy Rust game helper for raids and offlines'
 });
