@@ -6,7 +6,7 @@ export const navItems: NavItem[] = [
     label: 'Home'
   },
   {
-    href: '/countdown',
+    href: '/force',
     label: 'Force Wipe'
   }
 ];
