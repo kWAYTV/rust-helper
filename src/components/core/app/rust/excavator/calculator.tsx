@@ -2,6 +2,9 @@
 
 import Image from 'next/image';
 
+import { FuelCounter } from '@/components/core/app/rust/excavator/fuel-counter';
+import { ResourceTable } from '@/components/core/app/rust/excavator/resource-table';
+import { TimeDisplay } from '@/components/core/app/rust/excavator/time-display';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
@@ -13,10 +16,6 @@ import {
 import { EXCAVATOR_DATA, QUARRY_DATA } from '@/constants/excavator';
 import { useExcavatorStore } from '@/store/excavator';
 import type { OperationType } from '@/types/excavator/excavator';
-
-import { FuelCounter } from './fuel-counter';
-import { ResourceTable } from './resource-table';
-import { TimeDisplay } from './time-display';
 
 export function ExcavatorCalculator() {
   const { selectedOperation, setOperation } = useExcavatorStore();

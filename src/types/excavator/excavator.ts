@@ -1,4 +1,4 @@
-import type { RustImageCategories } from './rust-images';
+import type { RustImageCategories } from '@/types/rust/rust-images';
 
 export interface ResourceItem {
   name: string;
