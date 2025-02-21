@@ -48,7 +48,8 @@ export function DecayCalculator() {
   useCalculatorKeyboard({
     onClear: clear,
     onUndo: previousMaterial && previousHp > 0 ? undo : undefined,
-    onIncrement: () => currentHp < (selectedMaterial?.maxHp || 0) && setHp(currentHp + 100),
+    onIncrement: () =>
+      currentHp < (selectedMaterial?.maxHp || 0) && setHp(currentHp + 100),
     onDecrement: () => currentHp > 0 && setHp(currentHp - 100),
     onFocusNext: () => {
       if (document.activeElement === materialSelectRef.current) {
@@ -82,7 +83,7 @@ export function DecayCalculator() {
         <div className='flex flex-col items-center gap-2'>
           <div className='flex items-center gap-1.5'>
             <KeyRound className='h-3 w-3' />
-            <span className='text-sm text-muted-foreground'>Controls</span>
+            <span className='text-muted-foreground text-sm'>Controls</span>
           </div>
           <div className='flex flex-wrap justify-center gap-2'>
             <Badge variant='outline' className='text-muted-foreground'>
