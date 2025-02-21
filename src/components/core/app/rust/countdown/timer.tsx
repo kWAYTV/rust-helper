@@ -1,34 +1,24 @@
 'use client';
 
-import { CountdownSkeleton } from '@/components/core/app/rust/countdown/skeleton';
 import { CountdownUnit } from '@/components/core/app/rust/countdown/unit';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCountdown } from '@/hooks/use-countdown';
 
 export function CountdownTimer() {
-  const { countDownTime, isLoading } = useCountdown();
-
-  if (isLoading) {
-    return <CountdownSkeleton />;
-  }
+  const countdown = useCountdown();
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className='text-center'>Next Force Wipe In:</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className='flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6'>
-          {[
-            { value: countDownTime.days, label: 'days' },
-            { value: countDownTime.hours, label: 'hours' },
-            { value: countDownTime.minutes, label: 'minutes' },
-            { value: countDownTime.seconds, label: 'seconds' }
-          ].map(unit => (
-            <CountdownUnit key={unit.label} {...unit} />
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+    <div className='flex flex-col items-center gap-4'>
+      <h1 className='text-2xl font-bold tracking-wider uppercase'>Next Force Wipe</h1>
+      <div className='flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6'>
+        {[
+          { value: countdown.days, label: 'days' },
+          { value: countdown.hours, label: 'hours' },
+          { value: countdown.minutes, label: 'minutes' },
+          { value: countdown.seconds, label: 'seconds' }
+        ].map(unit => (
+          <CountdownUnit key={unit.label} {...unit} />
+        ))}
+      </div>
+    </div>
   );
 }

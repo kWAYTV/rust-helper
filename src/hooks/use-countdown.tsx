@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { calculateTimeRemaining, getNextFirstThursday } from '@/lib/date';
 import type { CountdownTime } from '@/types/countdown';
@@ -12,23 +12,22 @@ export function useCountdown() {
     minutes: 0,
     seconds: 0
   });
-  const [isLoading, setIsLoading] = useState(true);
-
-  const updateCountdown = useCallback(() => {
-    const nextThursday = getNextFirstThursday();
-    const timeRemaining = calculateTimeRemaining(nextThursday);
-    setCountDownTime(timeRemaining);
-    setIsLoading(false);
-  }, []);
 
   useEffect(() => {
+    // Get initial target date
+    const targetDate = getNextFirstThursday();
+    
+    function updateCountdown() {
+      setCountDownTime(calculateTimeRemaining(targetDate));
+    }
+
+    // Update immediately
     updateCountdown();
+    
+    // Then update every second
     const interval = setInterval(updateCountdown, 1000);
     return () => clearInterval(interval);
-  }, [updateCountdown]);
+  }, []);
 
-  return {
-    countDownTime,
-    isLoading
-  };
+  return countDownTime;
 }
