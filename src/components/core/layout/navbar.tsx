@@ -109,7 +109,7 @@ export function Navbar() {
                 <SheetContent side='right'>
                   <SheetHeader>
                     <SheetTitle>Rust Helper</SheetTitle>
-                    <p className="text-sm text-muted-foreground">
+                    <p className='text-muted-foreground text-sm'>
                       Navigation menu for quick access to all features
                     </p>
                   </SheetHeader>
