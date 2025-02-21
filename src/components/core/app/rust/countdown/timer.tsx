@@ -5,10 +5,14 @@ import { useCountdown } from '@/hooks/use-countdown';
 
 export function CountdownTimer() {
   const countdown = useCountdown();
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
     <div className='flex flex-col items-center gap-4'>
-      <h2 className='text-xl font-semibold tracking-tight'>Next Force Wipe</h2>
+      <div className='text-center'>
+        <h2 className='text-xl font-semibold tracking-tight'>Next Force Wipe</h2>
+        <p className='text-sm text-muted-foreground mt-1'>{timeZone}</p>
+      </div>
       <div className='flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6'>
         {[
           { value: countdown.days, label: 'days' },
