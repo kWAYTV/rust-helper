@@ -1,4 +1,4 @@
-import { RustImageCategories } from '@/types/rust-images';
+import { type RustImageCategories } from '@/types/rust-images';
 
 export const rustImages: RustImageCategories = {
   components: [
