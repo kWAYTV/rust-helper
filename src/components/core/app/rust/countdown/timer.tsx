@@ -1,6 +1,7 @@
 'use client';
 
 import { Calendar } from 'lucide-react';
+import { Spoiler } from 'spoiled';
 
 import { CountdownUnit } from '@/components/core/app/rust/countdown/unit';
 import { useCountdown } from '@/hooks/use-countdown';
@@ -30,8 +31,11 @@ export function CountdownTimer() {
       </div>
 
       <p className='text-muted-foreground text-center text-sm'>
-        Based on your local timezone:{' '}
-        <span className='font-medium'>{timeZone}</span>
+        Based on your local timezone:
+        <br />
+        <Spoiler hint='Click to reveal'>
+          <span className='text-primary font-medium'>{timeZone}</span>
+        </Spoiler>
       </p>
     </div>
   );
