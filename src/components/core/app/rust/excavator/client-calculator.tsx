@@ -13,7 +13,6 @@ import {
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-import { formatTimeString } from '@/components/core/app/rust/excavator/time-formatter';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,6 +39,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { EXCAVATOR_DATA, QUARRY_DATA } from '@/constants/excavator';
+import { formatTimeString } from '@/helpers/date';
 import { useExcavatorStore } from '@/store/excavator';
 import type { OperationType } from '@/types/excavator/excavator';
 
