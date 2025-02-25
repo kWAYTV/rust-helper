@@ -12,7 +12,7 @@ export function CountdownUnit({
     <div className='flex flex-col items-center gap-2'>
       <Card
         className={cn(
-          'flex items-center justify-center transition-all',
+          'bg-primary/5 border-primary/10 flex items-center justify-center transition-all',
           'h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24'
         )}
       >

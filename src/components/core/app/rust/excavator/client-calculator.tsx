@@ -52,34 +52,28 @@ const OPERATIONS: OperationType[] = [
 ];
 
 export function ClientCalculator() {
-  // Use selectors to prevent unnecessary re-renders
   const selectedOperation = useExcavatorStore(state => state.selectedOperation);
   const dieselFuel = useExcavatorStore(state => state.dieselFuel);
   const totalTime = useExcavatorStore(state => state.totalTime);
   const resources = useExcavatorStore(state => state.resources);
 
-  // Actions
   const setOperation = useExcavatorStore(state => state.setOperation);
   const incrementFuel = useExcavatorStore(state => state.incrementFuel);
   const decrementFuel = useExcavatorStore(state => state.decrementFuel);
   const setDieselFuel = useExcavatorStore(state => state.setDieselFuel);
   const clear = useExcavatorStore(state => state.clear);
 
-  // Local state for input field
   const [inputValue, setInputValue] = useState(dieselFuel.toString());
 
-  // Sync input value with store when dieselFuel changes
   useEffect(() => {
     setInputValue(dieselFuel.toString());
   }, [dieselFuel]);
 
-  // Get fuel image
   const fuelImage =
     selectedOperation === 'Excavator'
       ? EXCAVATOR_DATA.find(item => item.name === 'Diesel Fuel')?.image
       : QUARRY_DATA.find(q => q.type === selectedOperation)?.fuel;
 
-  // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
@@ -90,7 +84,6 @@ export function ClientCalculator() {
     }
   };
 
-  // Handle input blur
   const handleInputBlur = () => {
     const numValue = parseInt(inputValue);
     if (isNaN(numValue) || numValue < 1) {

@@ -31,7 +31,6 @@ import { useDecayStore } from '@/store/decay';
 import { type Material } from '@/types/decay/decay';
 
 export function ClientDecayCalculator() {
-  // Use selectors to prevent unnecessary re-renders
   const selectedMaterial = useDecayStore(state => state.selectedMaterial);
   const currentHp = useDecayStore(state => state.currentHp);
   const decayInfo = useDecayStore(state => state.decayInfo);
@@ -45,17 +44,14 @@ export function ClientDecayCalculator() {
     currentHp?.toString() || ''
   );
 
-  // Sync input value with store
   useEffect(() => {
     setInputValue(currentHp?.toString() || '');
   }, [currentHp]);
 
-  // Handle material selection
   const handleMaterialChange = (value: string) => {
     setMaterial(value);
   };
 
-  // Handle HP input
   const handleHpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
@@ -66,20 +62,17 @@ export function ClientDecayCalculator() {
     }
   };
 
-  // Handle clear selections
   const handleClearSelections = () => {
     clear();
     setInputValue('');
   };
 
-  // Handle undo HP change
   const handleUndoHpChange = () => {
     if (previousHp !== null) {
       undo();
     }
   };
 
-  // Calculate progress percentage
   const progressPercentage =
     selectedMaterial && currentHp !== null
       ? (currentHp / selectedMaterial.maxHp) * 100
