@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronDown, Cog } from 'lucide-react';
 
 export function EmptyState() {
