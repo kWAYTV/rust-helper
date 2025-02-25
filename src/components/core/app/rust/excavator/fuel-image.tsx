@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'motion/react';
 import Image from 'next/image';
 
 import {
@@ -26,11 +25,7 @@ export function FuelImage() {
   if (!fuelImage) return null;
 
   return (
-    <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 0.2 }}
-    >
+    <div>
       <HoverCard>
         <HoverCardTrigger asChild>
           <div className='flex cursor-help justify-center'>
@@ -56,6 +51,6 @@ export function FuelImage() {
           </div>
         </HoverCardContent>
       </HoverCard>
-    </motion.div>
+    </div>
   );
 }

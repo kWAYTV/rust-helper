@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Loader2, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { AnimatePresence, motion } from 'motion/react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -23,7 +22,10 @@ export function ModeToggle({ className }: ModeToggleProps) {
 
   if (!mounted) {
     return (
-      <Button variant='linkHover2' className={cn('flex items-center gap-2 p-2', className)}>
+      <Button
+        variant='linkHover2'
+        className={cn('flex items-center gap-2 p-2', className)}
+      >
         <Loader2 className='h-4 w-4 animate-spin' aria-hidden='true' />
         <span className='capitalize'>Loading</span>
       </Button>
@@ -37,25 +39,16 @@ export function ModeToggle({ className }: ModeToggleProps) {
       className={cn('flex items-center gap-2 p-2', className)}
       aria-label='Toggle theme'
     >
-      <AnimatePresence mode='wait' initial={false}>
-        <motion.div
-          key={currentTheme}
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 10, opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className='flex items-center gap-2'
-        >
-          {currentTheme === 'dark' ? (
-            <Sun className='h-4 w-4' aria-hidden='true' />
-          ) : (
-            <Moon className='h-4 w-4' aria-hidden='true' />
-          )}
-          <span className='capitalize'>
-            {currentTheme === 'dark' ? 'Light' : 'Dark'}
-          </span>
-        </motion.div>
-      </AnimatePresence>
+      <div className='flex items-center gap-2'>
+        {currentTheme === 'dark' ? (
+          <Sun className='h-4 w-4' aria-hidden='true' />
+        ) : (
+          <Moon className='h-4 w-4' aria-hidden='true' />
+        )}
+        <span className='capitalize'>
+          {currentTheme === 'dark' ? 'Light' : 'Dark'}
+        </span>
+      </div>
     </Button>
   );
 }

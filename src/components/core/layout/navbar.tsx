@@ -1,7 +1,6 @@
 'use client';
 
 import { Menu } from 'lucide-react';
-import { motion, useScroll } from 'motion/react';
 import { usePathname } from 'next/navigation';
 import { Link } from 'next-view-transitions';
 import * as React from 'react';
@@ -21,17 +20,17 @@ import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
-  const { scrollY } = useScroll();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const unsubscribe = scrollY.on('change', (latest: number) => {
-      setIsScrolled(latest > 0);
-    });
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
 
-    return () => unsubscribe();
-  }, [scrollY]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close sheet when route changes
   React.useEffect(() => {
@@ -78,28 +77,19 @@ export function Navbar() {
   });
 
   return (
-    <motion.header
+    <header
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
         isScrolled
           ? 'bg-background/80 supports-backdrop-filter:bg-background/60 dark:bg-background/80 dark:supports-backdrop-filter:bg-background/60 backdrop-blur-md'
           : 'bg-transparent'
       )}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       <div className='container mx-auto'>
         <nav className='flex h-16 items-center justify-between'>
           <div className='flex items-center gap-6'>
             <Link href='/' className='flex items-center pl-1 sm:pl-0'>
-              <motion.span
-                className='text-xl font-bold'
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Rust Helper
-              </motion.span>
+              <span className='text-xl font-bold'>Rust Helper</span>
             </Link>
             <div className='hidden md:block'>
               <NavLinks />
@@ -133,6 +123,6 @@ export function Navbar() {
         </nav>
       </div>
       {isScrolled && <Separator />}
-    </motion.header>
+    </header>
   );
 }

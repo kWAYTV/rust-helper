@@ -1,31 +1,35 @@
 'use client';
 
 import { ArrowUpIcon } from 'lucide-react';
-import { motion, useScroll } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 
 export function BackToTop() {
-  const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    return scrollY.on('change', latest => {
-      setIsVisible(latest > 200);
-    });
-  }, [scrollY]);
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > 200);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <motion.div
+    <div
       className='fixed right-4 bottom-4 z-50 md:right-8 md:bottom-8'
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.8 }}
-      transition={{ duration: 0.2 }}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'scale(1)' : 'scale(0.8)',
+        transition: 'opacity 0.2s, transform 0.2s',
+        pointerEvents: isVisible ? 'auto' : 'none'
+      }}
     >
       <Button
         size='icon'
@@ -34,6 +38,6 @@ export function BackToTop() {
       >
         <ArrowUpIcon className='group-hover:text-background dark:group-hover:text-background h-5 w-5 transition-all duration-300' />
       </Button>
-    </motion.div>
+    </div>
   );
 }
