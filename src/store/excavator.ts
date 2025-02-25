@@ -1,5 +1,6 @@
 import { toast } from 'sonner';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 import {
   EXCAVATOR_DATA,
@@ -21,75 +22,86 @@ interface ExcavatorState {
   clear: () => void;
 }
 
-export const useExcavatorStore = create<ExcavatorState>(set => ({
+// Initial state to avoid repetition
+const initialState = {
   dieselFuel: 1,
-  selectedOperation: 'Excavator',
+  selectedOperation: 'Excavator' as OperationType,
   timePerFuel: EXCAVATOR_TIME_PER_FUEL,
   totalTime: EXCAVATOR_TIME_PER_FUEL,
-  resources: EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel'),
+  resources: EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel')
+};
 
-  setDieselFuel: (amount: number) =>
-    set(state => ({
-      dieselFuel: Math.max(1, amount),
-      totalTime: Math.max(1, amount) * state.timePerFuel
-    })),
+export const useExcavatorStore = create<ExcavatorState>()(
+  persist(
+    set => ({
+      ...initialState,
 
-  setOperation: (operation: OperationType) =>
-    set(state => {
-      // Get operation data more efficiently
-      const quarryData =
-        operation !== 'Excavator'
-          ? QUARRY_DATA.find(q => q.type === operation)
-          : null;
+      setDieselFuel: (amount: number) =>
+        set(state => ({
+          dieselFuel: Math.max(1, amount),
+          totalTime: Math.max(1, amount) * state.timePerFuel
+        })),
 
-      const newTimePerFuel =
-        quarryData?.timePerFuelInSeconds ?? EXCAVATOR_TIME_PER_FUEL;
-      const newResources =
-        quarryData?.yield ??
-        EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel');
+      setOperation: (operation: OperationType) =>
+        set(state => {
+          // Get operation data more efficiently
+          const quarryData =
+            operation !== 'Excavator'
+              ? QUARRY_DATA.find(q => q.type === operation)
+              : null;
 
-      toast.info(`Switched to ${operation} operation`);
+          const newTimePerFuel =
+            quarryData?.timePerFuelInSeconds ?? EXCAVATOR_TIME_PER_FUEL;
+          const newResources =
+            quarryData?.yield ??
+            EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel');
 
-      return {
-        selectedOperation: operation,
-        timePerFuel: newTimePerFuel,
-        totalTime: state.dieselFuel * newTimePerFuel,
-        resources: newResources
-      };
-    }),
+          toast.success(`Switched to ${operation} operation`);
 
-  incrementFuel: () =>
-    set(state => {
-      const newFuel = state.dieselFuel + 1;
-      if (newFuel % 100 === 0) toast.info(`Added ${newFuel} diesel fuel`);
+          return {
+            selectedOperation: operation,
+            timePerFuel: newTimePerFuel,
+            totalTime: state.dieselFuel * newTimePerFuel,
+            resources: newResources
+          };
+        }),
 
-      return {
-        dieselFuel: newFuel,
-        totalTime: newFuel * state.timePerFuel
-      };
-    }),
+      incrementFuel: () =>
+        set(state => {
+          const newFuel = state.dieselFuel + 1;
+          if (newFuel % 100 === 0)
+            toast.success(`Added ${newFuel} diesel fuel`);
 
-  decrementFuel: () =>
-    set(state => {
-      if (state.dieselFuel <= 1) {
-        toast.error('Minimum fuel amount reached');
-        return state;
+          return {
+            dieselFuel: newFuel,
+            totalTime: newFuel * state.timePerFuel
+          };
+        }),
+
+      decrementFuel: () =>
+        set(state => {
+          if (state.dieselFuel <= 1) {
+            toast.error('Minimum fuel amount reached');
+            return state;
+          }
+
+          return {
+            dieselFuel: state.dieselFuel - 1,
+            totalTime: (state.dieselFuel - 1) * state.timePerFuel
+          };
+        }),
+
+      clear: () => {
+        set(initialState);
+        toast.success('Reset excavator calculator');
       }
-
-      return {
-        dieselFuel: state.dieselFuel - 1,
-        totalTime: (state.dieselFuel - 1) * state.timePerFuel
-      };
     }),
-
-  clear: () => {
-    set({
-      dieselFuel: 1,
-      selectedOperation: 'Excavator',
-      timePerFuel: EXCAVATOR_TIME_PER_FUEL,
-      totalTime: EXCAVATOR_TIME_PER_FUEL,
-      resources: EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel')
-    });
-    toast.info('Reset excavator calculator');
-  }
-}));
+    {
+      name: 'excavator-storage',
+      partialize: state => ({
+        dieselFuel: state.dieselFuel,
+        selectedOperation: state.selectedOperation
+      })
+    }
+  )
+);
