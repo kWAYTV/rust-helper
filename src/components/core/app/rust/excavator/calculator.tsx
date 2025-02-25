@@ -1,7 +1,7 @@
 'use client';
 
-import { EmptyState } from '@/components/core/app/rust/excavator/empty-state';
 import { ExcavatorCalculatorShell } from '@/components/core/app/rust/excavator/calculator-shell';
+import { EmptyState } from '@/components/core/app/rust/excavator/empty-state';
 import { OperationContent } from '@/components/core/app/rust/excavator/operation-content';
 import { OperationSelector } from '@/components/core/app/rust/excavator/operation-selector';
 import { useExcavatorStore } from '@/store/excavator';
