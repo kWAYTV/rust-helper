@@ -16,29 +16,19 @@ export function OperationContent() {
       </div>
 
       <div className='grid gap-6 sm:grid-cols-2'>
-        <Card>
-          <CardHeader className='pb-3'>
-            <CardTitle className='flex items-center gap-2 text-base font-medium'>
-              <Timer className='text-muted-foreground h-5 w-5' />
-              Duration
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <TimeDisplay />
-          </CardContent>
-        </Card>
+        <InfoCard
+          icon={<Timer className='text-muted-foreground h-5 w-5' />}
+          title='Duration'
+        >
+          <TimeDisplay />
+        </InfoCard>
 
-        <Card>
-          <CardHeader className='pb-3'>
-            <CardTitle className='flex items-center gap-2 text-base font-medium'>
-              <Clock className='text-muted-foreground h-5 w-5' />
-              Fuel Amount
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <FuelCounter />
-          </CardContent>
-        </Card>
+        <InfoCard
+          icon={<Clock className='text-muted-foreground h-5 w-5' />}
+          title='Fuel Amount'
+        >
+          <FuelCounter />
+        </InfoCard>
 
         <Card className='sm:col-span-2'>
           <CardHeader className='pb-3'>
@@ -52,5 +42,28 @@ export function OperationContent() {
         </Card>
       </div>
     </div>
+  );
+}
+
+// Helper component to reduce repetition
+function InfoCard({
+  icon,
+  title,
+  children
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Card>
+      <CardHeader className='pb-3'>
+        <CardTitle className='flex items-center gap-2 text-base font-medium'>
+          {icon}
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>{children}</CardContent>
+    </Card>
   );
 }

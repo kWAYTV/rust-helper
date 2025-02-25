@@ -1,5 +1,4 @@
 import { Minus, Plus } from 'lucide-react';
-import type React from 'react';
 import { useRef } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -10,27 +9,34 @@ export function FuelCounter() {
   const incrementTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const decrementTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleIncrement = () => {
-    const increment = () => {
-      incrementFuel();
-      incrementTimeoutRef.current = setTimeout(increment, 300);
-    };
-    increment();
+  // Simplified handlers with cleaner implementation
+  const startIncrement = () => {
+    incrementFuel();
+    clearTimeout(incrementTimeoutRef.current!);
+    incrementTimeoutRef.current = setTimeout(() => {
+      incrementTimeoutRef.current = setInterval(
+        incrementFuel,
+        100
+      ) as unknown as NodeJS.Timeout;
+    }, 300);
   };
 
-  const handleDecrement = () => {
-    const decrement = () => {
-      decrementFuel();
-      decrementTimeoutRef.current = setTimeout(decrement, 300);
-    };
-    decrement();
+  const startDecrement = () => {
+    decrementFuel();
+    clearTimeout(decrementTimeoutRef.current!);
+    decrementTimeoutRef.current = setTimeout(() => {
+      decrementTimeoutRef.current = setInterval(
+        decrementFuel,
+        100
+      ) as unknown as NodeJS.Timeout;
+    }, 300);
   };
 
-  const stopCounter = (
-    timeoutRef: React.MutableRefObject<NodeJS.Timeout | null>
-  ) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+  const stopCounter = (ref: React.MutableRefObject<NodeJS.Timeout | null>) => {
+    if (ref.current) {
+      clearTimeout(ref.current);
+      clearInterval(ref.current);
+      ref.current = null;
     }
   };
 
@@ -40,7 +46,7 @@ export function FuelCounter() {
         variant='outline'
         size='icon'
         disabled={dieselFuel <= 1}
-        onMouseDown={handleDecrement}
+        onMouseDown={startDecrement}
         onMouseUp={() => stopCounter(decrementTimeoutRef)}
         onMouseLeave={() => stopCounter(decrementTimeoutRef)}
       >
@@ -52,7 +58,7 @@ export function FuelCounter() {
       <Button
         variant='outline'
         size='icon'
-        onMouseDown={handleIncrement}
+        onMouseDown={startIncrement}
         onMouseUp={() => stopCounter(incrementTimeoutRef)}
         onMouseLeave={() => stopCounter(incrementTimeoutRef)}
       >

@@ -6,26 +6,20 @@ export function TimeDisplay() {
   const { totalTime } = useExcavatorStore();
 
   const formatTimeString = () => {
+    if (totalTime === 0) return '0s';
+
     const hours = Math.floor(totalTime / 3600);
     const minutes = Math.floor((totalTime % 3600) / 60);
     const seconds = totalTime % 60;
 
-    if (totalTime === 0) {
-      return '0 seconds';
-    }
-
-    const parts = [];
-    if (hours > 0) {
-      parts.push(`${hours}h`);
-    }
-    if (minutes > 0) {
-      parts.push(`${minutes}m`);
-    }
-    if (seconds > 0) {
-      parts.push(`${seconds}s`);
-    }
-
-    return parts.join(' ');
+    // More concise time formatting
+    return [
+      hours > 0 && `${hours}h`,
+      minutes > 0 && `${minutes}m`,
+      seconds > 0 && `${seconds}s`
+    ]
+      .filter(Boolean)
+      .join(' ');
   };
 
   return (

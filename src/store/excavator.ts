@@ -29,28 +29,27 @@ export const useExcavatorStore = create<ExcavatorState>(set => ({
   resources: EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel'),
 
   setDieselFuel: (amount: number) =>
-    set(state => {
-      const newAmount = Math.max(1, amount);
-      return {
-        dieselFuel: newAmount,
-        totalTime: newAmount * state.timePerFuel
-      };
-    }),
+    set(state => ({
+      dieselFuel: Math.max(1, amount),
+      totalTime: Math.max(1, amount) * state.timePerFuel
+    })),
 
   setOperation: (operation: OperationType) =>
     set(state => {
-      const newTimePerFuel =
-        operation === 'Excavator'
-          ? EXCAVATOR_TIME_PER_FUEL
-          : (QUARRY_DATA.find(q => q.type === operation)
-              ?.timePerFuelInSeconds ?? EXCAVATOR_TIME_PER_FUEL);
+      // Get operation data more efficiently
+      const quarryData =
+        operation !== 'Excavator'
+          ? QUARRY_DATA.find(q => q.type === operation)
+          : null;
 
+      const newTimePerFuel =
+        quarryData?.timePerFuelInSeconds ?? EXCAVATOR_TIME_PER_FUEL;
       const newResources =
-        operation === 'Excavator'
-          ? EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel')
-          : (QUARRY_DATA.find(q => q.type === operation)?.yield ?? []);
+        quarryData?.yield ??
+        EXCAVATOR_DATA.filter(item => item.name !== 'Diesel Fuel');
 
       toast.info(`Switched to ${operation} operation`);
+
       return {
         selectedOperation: operation,
         timePerFuel: newTimePerFuel,
@@ -62,10 +61,12 @@ export const useExcavatorStore = create<ExcavatorState>(set => ({
   incrementFuel: () =>
     set(state => {
       const newFuel = state.dieselFuel + 1;
-      if (newFuel % 100 === 0) {
-        toast.info(`Added ${newFuel} diesel fuel`);
-      }
-      return { dieselFuel: newFuel, totalTime: newFuel * state.timePerFuel };
+      if (newFuel % 100 === 0) toast.info(`Added ${newFuel} diesel fuel`);
+
+      return {
+        dieselFuel: newFuel,
+        totalTime: newFuel * state.timePerFuel
+      };
     }),
 
   decrementFuel: () =>
@@ -74,6 +75,7 @@ export const useExcavatorStore = create<ExcavatorState>(set => ({
         toast.error('Minimum fuel amount reached');
         return state;
       }
+
       return {
         dieselFuel: state.dieselFuel - 1,
         totalTime: (state.dieselFuel - 1) * state.timePerFuel

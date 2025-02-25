@@ -23,7 +23,7 @@ export function ResourceTable() {
       </TableHeader>
       <TableBody>
         {resources.map((item, index) => (
-          <TableRow key={index}>
+          <TableRow key={`${item.name}-${index}`}>
             <TableCell className='flex items-center gap-2'>
               <Image
                 src={item.image || '/placeholder.svg'}
@@ -36,11 +36,21 @@ export function ResourceTable() {
               />
               {item.name}
             </TableCell>
-            <TableCell className='text-primary'>
+            <TableCell className='text-primary font-medium tabular-nums'>
               {item.amount * dieselFuel}
             </TableCell>
           </TableRow>
         ))}
+        {resources.length === 0 && (
+          <TableRow>
+            <TableCell
+              colSpan={2}
+              className='text-muted-foreground py-4 text-center'
+            >
+              No resources available for this operation
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );

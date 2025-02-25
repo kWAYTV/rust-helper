@@ -20,15 +20,16 @@ import {
 import { useExcavatorStore } from '@/store/excavator';
 import type { OperationType } from '@/types/excavator/excavator';
 
+// Define operations outside component to avoid recreation on each render
+const OPERATIONS: OperationType[] = [
+  'Excavator',
+  'HQM Quarry',
+  'Sulfur Quarry',
+  'Stone Quarry'
+];
+
 export function OperationSelector() {
   const { selectedOperation, setOperation } = useExcavatorStore();
-
-  const operations: OperationType[] = [
-    'Excavator',
-    'HQM Quarry',
-    'Sulfur Quarry',
-    'Stone Quarry'
-  ];
 
   return (
     <div className='space-y-1.5'>
@@ -48,7 +49,7 @@ export function OperationSelector() {
       <Select
         value={selectedOperation || ''}
         onValueChange={value => {
-          if (operations.includes(value as OperationType)) {
+          if (OPERATIONS.includes(value as OperationType)) {
             setOperation(value as OperationType);
           }
         }}
@@ -57,7 +58,7 @@ export function OperationSelector() {
           <SelectValue placeholder='Select operation type' />
         </SelectTrigger>
         <SelectContent>
-          {operations.map(operation => (
+          {OPERATIONS.map(operation => (
             <SelectItem key={operation} value={operation}>
               <div className='flex items-center gap-2'>
                 {operation === 'Excavator' ? (
