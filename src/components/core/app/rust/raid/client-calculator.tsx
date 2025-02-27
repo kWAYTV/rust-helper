@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import CategoryButtons from '@/components/core/app/rust/raid/category-buttons';
 import { CollectionDrawer } from '@/components/core/app/rust/raid/collection-drawer';
 import ItemGrid from '@/components/core/app/rust/raid/item-grid';
+import RaidLoadingSkeleton from '@/components/core/app/rust/raid/loading-skeleton';
 
 export function ClientRaidCalculator() {
   const [mounted, setMounted] = useState(false);
@@ -15,8 +16,7 @@ export function ClientRaidCalculator() {
   }, []);
 
   if (!mounted) {
-    // You could add a skeleton loader here
-    return <div className='min-h-[500px]'></div>;
+    return <RaidLoadingSkeleton />;
   }
 
   return (

@@ -1,9 +1,10 @@
 'use client';
 
 import { Calendar } from 'lucide-react';
-import { Spoiler } from 'spoiled';
 import { useEffect, useState } from 'react';
+import { Spoiler } from 'spoiled';
 
+import CountdownLoadingSkeleton from '@/components/core/app/rust/countdown/loading-skeleton';
 import { CountdownUnit } from '@/components/core/app/rust/countdown/unit';
 import { useCountdown } from '@/hooks/use-countdown';
 
@@ -17,9 +18,7 @@ export function ClientCountdown() {
   }, []);
 
   if (!mounted) {
-    return (
-      <div className='flex min-h-[120px] flex-wrap justify-center gap-3 sm:gap-4 md:gap-6'></div>
-    );
+    return <CountdownLoadingSkeleton />;
   }
 
   return (

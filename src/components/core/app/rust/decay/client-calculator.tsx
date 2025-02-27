@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import DecayResult from '@/components/core/app/rust/decay/decay-result';
 import HpInput from '@/components/core/app/rust/decay/hp-input';
+import DecayLoadingSkeleton from '@/components/core/app/rust/decay/loading-skeleton';
 import MaterialSelector from '@/components/core/app/rust/decay/material-selector';
 import { useDecayStore } from '@/store/decay';
 
@@ -20,7 +21,7 @@ export default function ClientDecayCalculator() {
   }, [reset]);
 
   if (!mounted) {
-    return null;
+    return <DecayLoadingSkeleton />;
   }
 
   return (
