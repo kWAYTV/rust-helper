@@ -1,10 +1,10 @@
 'use client';
 
 import { Menu } from 'lucide-react';
+import { motion } from 'motion/react';
 import { usePathname } from 'next/navigation';
 import { Link } from 'next-view-transitions';
 import * as React from 'react';
-import { motion } from 'motion/react';
 
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
