@@ -2,11 +2,10 @@
 
 import { memo } from 'react';
 
-import { Card, CardContent } from '@/components/ui/card';
-import { useDecayStore } from '@/store/decay';
-
 import DecayInfo from '@/components/core/app/rust/decay/decay-info';
 import ResultSkeleton from '@/components/core/app/rust/decay/result-skeleton';
+import { Card, CardContent } from '@/components/ui/card';
+import { useDecayStore } from '@/store/decay';
 
 interface DecayResultProps {
   className?: string;

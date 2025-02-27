@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-import { useExcavatorStore } from '@/store/excavator';
-
 import EmptyState from '@/components/core/app/rust/excavator/empty-state';
 import FuelInput from '@/components/core/app/rust/excavator/fuel-input';
 import LoadingSkeleton from '@/components/core/app/rust/excavator/loading-skeleton';
 import OperationSelector from '@/components/core/app/rust/excavator/operation-selector';
 import ResourceDisplay from '@/components/core/app/rust/excavator/resource-display';
+import { useExcavatorStore } from '@/store/excavator';
 
 export function ClientCalculator() {
   const [mounted, setMounted] = useState(false);

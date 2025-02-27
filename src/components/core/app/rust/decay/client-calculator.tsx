@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
-import { useDecayStore } from '@/store/decay';
-
 import DecayResult from '@/components/core/app/rust/decay/decay-result';
 import HpInput from '@/components/core/app/rust/decay/hp-input';
 import MaterialSelector from '@/components/core/app/rust/decay/material-selector';
+import { useDecayStore } from '@/store/decay';
 
 export default function ClientDecayCalculator() {
   const [mounted, setMounted] = useState(false);
