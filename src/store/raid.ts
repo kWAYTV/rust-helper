@@ -14,7 +14,7 @@ import {
 
 export const useRaidStore = create<RaidState>()(
   persist(
-    (set, get) => ({
+    set => ({
       // Collection
       collection: [],
       selectedMethod: 'c4',

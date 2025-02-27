@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { RustImage } from '@/components/shared/rust-image';
 import { resourceImageKeys } from '@/constants/raid';
-import { DestructionOptions } from '@/types/rust/raid';
+import { type DestructionOptions } from '@/types/rust/raid';
 
 interface RequiredResourcesProps {
   resources: DestructionOptions;

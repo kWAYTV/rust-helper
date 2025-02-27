@@ -7,7 +7,7 @@ export interface DestructionOptions {
   satchel: number;
 }
 
-export interface BestOptions extends DestructionOptions {}
+export type BestOptions = DestructionOptions;
 
 export interface RaidItem {
   id: string;
