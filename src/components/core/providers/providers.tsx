@@ -2,11 +2,11 @@
 
 import { ThemeProvider } from 'next-themes';
 import { ViewTransitions } from 'next-view-transitions';
-import { Toaster } from '@/components/ui/sonner';
 
 import { BackToTop } from '@/components/core/layout/back-to-top';
 import { Footer } from '@/components/core/layout/footer';
 import { Navbar } from '@/components/core/layout/navbar';
+import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
 export function Providers({ children }: { children: React.ReactNode }) {
