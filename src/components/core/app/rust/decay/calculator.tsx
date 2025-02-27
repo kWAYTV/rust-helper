@@ -1,8 +1,8 @@
-import { ClientDecayCalculator } from '@/components/core/app/rust/decay/client-calculator';
+import ClientDecayCalculator from './client-calculator';
 
 export function DecayCalculator() {
   return (
-    <div className='w-full'>
+    <div className='container max-w-2xl py-6'>
       <ClientDecayCalculator />
     </div>
   );

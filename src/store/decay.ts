@@ -13,12 +13,14 @@ interface DecayStore {
   previousHp: number;
   decayInfo: DecayInfo;
   error: string;
+  isLoading: boolean;
 
   // Actions
   setMaterial: (materialName: string) => void;
   setHp: (hp: number) => void;
   clear: () => void;
   undo: () => void;
+  reset: () => void;
 }
 
 export const useDecayStore = create<DecayStore>((set, get) => ({
@@ -32,11 +34,14 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
     decayDateTime: ''
   },
   error: '',
+  isLoading: false,
 
   // Actions
   setMaterial: (materialName: string) => {
     const material = materials.find(mat => mat.name === materialName) || null;
     const state = get();
+
+    set({ isLoading: true });
 
     if (material && state.selectedMaterial) {
       // Store previous state
@@ -54,14 +59,18 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         `Adjusted HP from ${state.currentHp} to ${newHp} for ${material.name}`
       );
 
-      set({
-        selectedMaterial: material,
-        currentHp: newHp,
-        previousMaterial,
-        previousHp,
-        error: '',
-        decayInfo: calculateDecay(material, newHp)
-      });
+      // Simulate a small delay to show loading state
+      setTimeout(() => {
+        set({
+          selectedMaterial: material,
+          currentHp: newHp,
+          previousMaterial,
+          previousHp,
+          error: '',
+          decayInfo: calculateDecay(material, newHp),
+          isLoading: false
+        });
+      }, 300);
     } else {
       set({
         selectedMaterial: material,
@@ -70,7 +79,8 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         decayInfo: {
           timeLeft: '',
           decayDateTime: ''
-        }
+        },
+        isLoading: false
       });
       if (material) {
         toast.info(`Selected ${material.name}`);
@@ -82,8 +92,14 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
     const state = get();
     const { selectedMaterial } = state;
 
+    set({ isLoading: true });
+
     if (!selectedMaterial) {
-      set({ currentHp: 0, error: 'Please select a material first' });
+      set({
+        currentHp: 0,
+        error: 'Please select a material first',
+        isLoading: false
+      });
       toast.error('Please select a material first');
       return;
     }
@@ -95,7 +111,8 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         decayInfo: {
           timeLeft: '',
           decayDateTime: ''
-        }
+        },
+        isLoading: false
       });
       toast.error(
         `Maximum HP for ${selectedMaterial.name} is ${selectedMaterial.maxHp}`
@@ -110,28 +127,33 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         decayInfo: {
           timeLeft: '',
           decayDateTime: ''
-        }
+        },
+        isLoading: false
       });
       toast.error('HP cannot be negative');
       return;
     }
 
-    set({
-      currentHp: hp,
-      error: '',
-      decayInfo:
-        hp > 0
-          ? calculateDecay(selectedMaterial, hp)
-          : {
-              timeLeft: '',
-              decayDateTime: ''
-            }
-    });
+    // Simulate a small delay to show loading state
+    setTimeout(() => {
+      set({
+        currentHp: hp,
+        error: '',
+        decayInfo:
+          hp > 0
+            ? calculateDecay(selectedMaterial, hp)
+            : {
+                timeLeft: '',
+                decayDateTime: ''
+              },
+        isLoading: false
+      });
 
-    // Show toast for significant HP changes
-    if (hp % 500 === 0 && hp > 0) {
-      toast.info(`Set HP to ${hp}`);
-    }
+      // Show toast for significant HP changes
+      if (hp % 500 === 0 && hp > 0) {
+        toast.info(`Set HP to ${hp}`);
+      }
+    }, 300);
   },
 
   clear: () => {
@@ -144,7 +166,8 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         timeLeft: '',
         decayDateTime: ''
       },
-      error: ''
+      error: '',
+      isLoading: false
     });
     toast.info('Reset decay calculator');
   },
@@ -152,17 +175,40 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
   undo: () => {
     const state = get();
     if (state.previousMaterial && state.previousHp > 0) {
-      set({
-        selectedMaterial: state.previousMaterial,
-        currentHp: state.previousHp,
-        previousMaterial: null,
-        previousHp: 0,
-        error: '',
-        decayInfo: calculateDecay(state.previousMaterial, state.previousHp)
-      });
-      toast.info(
-        `Reverted back to ${state.previousMaterial.name} with ${state.previousHp} HP`
-      );
+      set({ isLoading: true });
+
+      // Simulate a small delay to show loading state
+      setTimeout(() => {
+        if (state.previousMaterial) {
+          set({
+            selectedMaterial: state.previousMaterial,
+            currentHp: state.previousHp,
+            previousMaterial: null,
+            previousHp: 0,
+            error: '',
+            decayInfo: calculateDecay(state.previousMaterial, state.previousHp),
+            isLoading: false
+          });
+          toast.info(
+            `Reverted back to ${state.previousMaterial.name} with ${state.previousHp} HP`
+          );
+        }
+      }, 300);
     }
+  },
+
+  reset: () => {
+    set({
+      selectedMaterial: null,
+      currentHp: 0,
+      previousMaterial: null,
+      previousHp: 0,
+      decayInfo: {
+        timeLeft: '',
+        decayDateTime: ''
+      },
+      error: '',
+      isLoading: false
+    });
   }
 }));
