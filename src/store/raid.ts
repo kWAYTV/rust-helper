@@ -1,68 +1,178 @@
 import { toast } from 'sonner';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-interface RaidItem {
-  name: string;
-  quantity: number;
-  sulfurCost: number;
-}
+import { raidItems, sulfurCostPerUnit } from '@/constants/raid';
+import {
+  type CollectionItem,
+  type DestructionMethod,
+  type RaidItem,
+  type RaidItemCategory,
+  type RaidState,
+  type SulfurCost
+} from '@/types/rust/raid';
 
-interface RaidStore {
-  // State
-  raidType: string;
-  targetItems: RaidItem[];
-  totalSulfur: number;
+export const useRaidStore = create<RaidState>()(
+  persist(
+    (set, get) => ({
+      // Collection
+      collection: [],
+      selectedMethod: 'c4',
+      activeCategory: null,
 
-  // Actions
-  setRaidType: (type: string) => void;
-  addItem: (item: RaidItem) => void;
-  removeItem: (itemName: string) => void;
-  clear: () => void;
-  calculateCost: () => void;
-}
+      // UI State
+      isCollectionOpen: false,
 
-export const useRaidStore = create<RaidStore>((set, get) => ({
-  // Initial state
-  raidType: '',
-  targetItems: [],
-  totalSulfur: 0,
+      // Actions
+      setActiveCategory: category => {
+        set({ activeCategory: category });
+      },
 
-  // Actions
-  setRaidType: (type: string) => {
-    set({ raidType: type });
-    toast.info(`Selected ${type} raid type`);
-  },
+      setSelectedMethod: method => {
+        set({ selectedMethod: method });
+      },
 
-  addItem: (item: RaidItem) => {
-    set(state => ({
-      targetItems: [...state.targetItems, item]
-    }));
-    toast.success(`Added ${item.quantity}x ${item.name}`);
-  },
+      addItem: item => {
+        set(state => {
+          const existingItem = state.collection.find(
+            c => c.item.id === item.id
+          );
 
-  removeItem: (itemName: string) => {
-    set(state => ({
-      targetItems: state.targetItems.filter(item => item.name !== itemName)
-    }));
-    toast.info(`Removed ${itemName} from raid calculation`);
-  },
+          if (existingItem) {
+            return {
+              collection: state.collection.map(c =>
+                c.item.id === item.id ? { ...c, quantity: c.quantity + 1 } : c
+              )
+            };
+          } else {
+            return {
+              collection: [...state.collection, { item, quantity: 1 }]
+            };
+          }
+        });
+        toast.success(`Added ${item.name}`);
+      },
 
-  calculateCost: () => {
-    const state = get();
-    const total = state.targetItems.reduce(
-      (sum, item) => sum + item.sulfurCost * item.quantity,
-      0
-    );
-    set({ totalSulfur: total });
-    toast.success(`Total raid cost: ${total} sulfur`);
-  },
+      removeItem: item => {
+        set(state => {
+          const existingItem = state.collection.find(
+            c => c.item.id === item.id
+          );
 
-  clear: () => {
-    set({
-      raidType: '',
-      targetItems: [],
-      totalSulfur: 0
-    });
-    toast.info('Reset raid calculator');
-  }
-}));
+          if (!existingItem) return state;
+
+          if (existingItem.quantity === 1) {
+            return {
+              collection: state.collection.filter(c => c.item.id !== item.id)
+            };
+          } else {
+            return {
+              collection: state.collection.map(c =>
+                c.item.id === item.id ? { ...c, quantity: c.quantity - 1 } : c
+              )
+            };
+          }
+        });
+        toast.info(`Removed ${item.name}`);
+      },
+
+      resetAll: () => {
+        set({
+          collection: [],
+          selectedMethod: 'c4',
+          activeCategory: null,
+          isCollectionOpen: false
+        });
+        toast.info('Reset raid calculator');
+      },
+
+      setCollectionOpen: isOpen => {
+        set({ isCollectionOpen: isOpen });
+      }
+    }),
+    {
+      name: 'raid-calculator-storage'
+    }
+  )
+);
+
+// Utility functions to use with the store
+export const calculateResources = (collection: CollectionItem[]) => {
+  const resources = {
+    c4: 0,
+    bullets: 0,
+    rockets: 0,
+    satchel: 0
+  };
+
+  collection.forEach(c => {
+    resources.c4 += c.item.destructionOptions.c4 * c.quantity;
+    resources.bullets += c.item.destructionOptions.bullets * c.quantity;
+    resources.rockets += c.item.destructionOptions.rockets * c.quantity;
+    resources.satchel += c.item.destructionOptions.satchel * c.quantity;
+  });
+
+  return resources;
+};
+
+export const calculateSulfurCost = (
+  collection: CollectionItem[],
+  method: DestructionMethod
+): number => {
+  return collection.reduce((total, c) => {
+    const methodQuantity = c.item.destructionOptions[method];
+    const sulfurCost = sulfurCostPerUnit[method];
+    return total + methodQuantity * c.quantity * sulfurCost;
+  }, 0);
+};
+
+export const calculateAllSulfurCosts = (
+  collection: CollectionItem[]
+): SulfurCost[] => {
+  const methods: DestructionMethod[] = ['c4', 'bullets', 'rockets', 'satchel'];
+
+  return methods
+    .map(method => ({
+      method,
+      quantity: calculateSulfurCost(collection, method)
+    }))
+    .sort((a, b) => a.quantity - b.quantity);
+};
+
+export const calculateBestOptionsSulfurCost = (
+  collection: CollectionItem[],
+  method: DestructionMethod
+): number => {
+  return collection.reduce((total, c) => {
+    if (!c.item.bestOption) return total;
+
+    const optionValue = c.item.bestOption[method];
+    return total + optionValue * c.quantity * sulfurCostPerUnit[method];
+  }, 0);
+};
+
+export const calculateBestOptionsQuantities = (
+  collection: CollectionItem[]
+) => {
+  const methods: DestructionMethod[] = ['c4', 'bullets', 'rockets', 'satchel'];
+  const totals: Partial<Record<DestructionMethod, number>> = {};
+
+  methods.forEach(method => {
+    const total = collection.reduce((sum, c) => {
+      return sum + (c.item.bestOption?.[method] || 0) * c.quantity;
+    }, 0);
+
+    if (total > 0) {
+      totals[method] = total;
+    }
+  });
+
+  return totals;
+};
+
+export const getItemsByCategory = (
+  category: RaidItemCategory | null
+): RaidItem[] => {
+  if (!category) return [];
+  return raidItems.filter(item => item.category === category);
+};
