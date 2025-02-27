@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from 'next-themes';
 import { ViewTransitions } from 'next-view-transitions';
-import { Toaster } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 
 import { BackToTop } from '@/components/core/layout/back-to-top';
 import { Footer } from '@/components/core/layout/footer';
@@ -26,7 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           </div>
         </TooltipProvider>
       </ViewTransitions>
-      <Toaster richColors theme='system' />
+      <Toaster theme='system' />
     </ThemeProvider>
   );
 }
