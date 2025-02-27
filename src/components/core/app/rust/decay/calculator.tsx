@@ -1,4 +1,4 @@
-import ClientDecayCalculator from './client-calculator';
+import ClientDecayCalculator from '@/components/core/app/rust/decay/client-calculator';
 
 export function DecayCalculator() {
   return (
