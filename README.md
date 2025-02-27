@@ -1,37 +1,49 @@
-# Rust Helper
+# 🛠️ Rust Helper
 
-A collection of useful calculators and tools for Rust players. Built with
-Next.js and Tailwind CSS.
+[![Changelog Release](https://github.com/kWAYTV/rust-helper/actions/workflows/changelog-release.yml/badge.svg)](https://github.com/kWAYTV/rust-helper/actions/workflows/changelog-release.yml)
 
-## Features
+A comprehensive toolkit for Rust game players providing calculators and
+utilities to optimize gameplay. Built with Next.js 15 and modern React patterns.
 
-- **Force Wipe Countdown**: Track time until the next force wipe
-- **Raid Calculator**: Calculate raid costs and requirements (Coming Soon)
-- **Excavator Calculator**: Calculate resource yields from excavator and
+## ✨ Features
+
+- 🕒 **Force Wipe Countdown** - Track time until the next server wipe
+- 💥 **Raid Calculator** - Calculate raid costs for different structures
+- ⛏️ **Excavator Calculator** - Optimize resource yields from excavator and
   quarries
-- **Decay Calculator**: Track when your walls will decay based on material and
+- 🏗️ **Decay Calculator** - Monitor structure decay times based on material and
   HP
 
-## Getting Started
+## 🚀 Getting Started
 
-First, install the dependencies:
+1. **Install dependencies**:
 
-```bash
-pnpm install
-```
+   ```bash
+   pnpm install
+   ```
 
-Then, run the development server:
+2. **Run development server**:
 
-```bash
-pnpm dev
-```
+   ```bash
+   pnpm dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
+3. **Access the application**:  
+   Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Tech Stack
+## 💻 Tech Stack
 
-- [Next.js](https://nextjs.org) - React framework
-- [Tailwind CSS](https://tailwindcss.com) - CSS framework
-- [shadcn/ui](https://ui.shadcn.com) - UI components
-- [Lucide Icons](https://lucide.dev) - Icons
+| Technology                                  | Purpose                                   |
+| ------------------------------------------- | ----------------------------------------- |
+| [Next.js 15](https://nextjs.org)            | React framework with Partial Prerendering |
+| [React 19](https://react.dev)               | UI library                                |
+| [Tailwind CSS 4.0](https://tailwindcss.com) | Utility-first CSS framework               |
+| [shadcn/ui](https://ui.shadcn.com)          | Unstyled UI components                    |
+| [Lucide Icons](https://lucide.dev)          | SVG icon library                          |
+| [Zustand](https://zustand-demo.pmnd.rs/)    | State management                          |
+| [UMAMI](https://umami.is/)                  | Privacy-focused analytics                 |
+
+## 📊 Analytics
+
+This project uses [UMAMI](https://umami.is/) for privacy-focused, cookie-free
+web analytics to track usage patterns and improve user experience.
