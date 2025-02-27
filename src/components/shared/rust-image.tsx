@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import { rustImages } from '@/constants/rust-images';
 import { cn } from '@/lib/utils';
 
@@ -19,6 +20,8 @@ export const RustImage = memo(function RustImage({
   width = 100,
   height = 100
 }: RustImageProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
   // Find the image in the rust images categories
   const findImageInCategories = () => {
     for (const category in rustImages) {
@@ -43,12 +46,30 @@ export const RustImage = memo(function RustImage({
   const { src, alt: imageAlt } = findImageInCategories();
 
   return (
-    <Image
-      src={src}
-      alt={imageAlt}
-      width={width}
-      height={height}
-      className={cn('object-contain', className)}
-    />
+    <div className='relative flex h-full w-full items-center justify-center'>
+      {isLoading && (
+        <Skeleton
+          className={cn(
+            'absolute inset-0 animate-pulse rounded-md opacity-40',
+            className
+          )}
+        />
+      )}
+      <Image
+        src={src}
+        alt={imageAlt}
+        width={width}
+        height={height}
+        className={cn(
+          'object-contain',
+          isLoading
+            ? 'opacity-0'
+            : 'opacity-100 transition-opacity duration-500',
+          className
+        )}
+        onLoad={() => setIsLoading(false)}
+        priority={false}
+      />
+    </div>
   );
 });

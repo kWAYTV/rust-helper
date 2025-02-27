@@ -23,29 +23,31 @@ const SulfurCosts = memo(function SulfurCosts({ costs }: SulfurCostsProps) {
           return (
             <div
               key={cost.method}
-              className='flex items-center gap-3 rounded border border-neutral-800 bg-neutral-900 p-3'
+              className='border-border bg-card flex items-center gap-3 rounded border p-3'
             >
               <div className='flex items-center gap-2'>
-                <div className='flex h-10 w-10 items-center justify-center'>
+                <div className='bg-background/80 relative flex aspect-square h-10 w-10 items-center justify-center overflow-hidden rounded'>
                   <RustImage
                     imageKey={resourceImageKeys[cost.method]}
                     alt={cost.method}
-                    width={36}
-                    height={36}
+                    width={32}
+                    height={32}
+                    className='h-8 w-8'
                   />
                 </div>
-                <div className='flex h-6 w-6 items-center justify-center'>
+                <div className='bg-background/80 relative flex aspect-square h-6 w-6 items-center justify-center overflow-hidden rounded'>
                   <RustImage
                     imageKey={sulfurImageKey}
                     alt='Sulfur'
-                    width={20}
-                    height={20}
+                    width={18}
+                    height={18}
+                    className='h-5 w-5'
                   />
                 </div>
               </div>
               <div>
                 <p className='text-sm font-medium capitalize'>{cost.method}</p>
-                <p className='text-xs text-yellow-300'>
+                <p className='text-xs text-yellow-400'>
                   {cost.quantity.toLocaleString()} sulfur
                 </p>
               </div>

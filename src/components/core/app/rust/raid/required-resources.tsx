@@ -28,19 +28,20 @@ const RequiredResources = memo(function RequiredResources({
           return (
             <div
               key={key}
-              className='flex items-center gap-3 rounded border border-neutral-800 bg-neutral-900 p-3'
+              className='border-border bg-card flex items-center gap-3 rounded border p-3'
             >
-              <div className='flex h-10 w-10 items-center justify-center'>
+              <div className='bg-background/80 relative flex aspect-square h-10 w-10 items-center justify-center overflow-hidden rounded'>
                 <RustImage
                   imageKey={resourceImageKeys[key]}
                   alt={key}
-                  width={36}
-                  height={36}
+                  width={32}
+                  height={32}
+                  className='h-8 w-8'
                 />
               </div>
               <div>
                 <p className='text-sm font-medium capitalize'>{key}</p>
-                <p className='text-xs text-neutral-400'>{amount}</p>
+                <p className='text-muted-foreground text-xs'>{amount}</p>
               </div>
             </div>
           );

@@ -67,11 +67,13 @@ const ItemGrid = memo(function ItemGrid() {
             )}
 
             <CardContent className='flex flex-col items-center p-3'>
-              <div className='mb-2 flex h-20 w-20 items-center justify-center overflow-hidden rounded-md'>
+              <div className='bg-background/80 relative mb-2 flex aspect-square w-20 items-center justify-center overflow-hidden rounded-md'>
                 <RustImage
                   imageKey={item.imageKey}
                   alt={item.name}
                   className='h-16 w-16 object-contain transition-all duration-200 group-hover:scale-105'
+                  width={64}
+                  height={64}
                 />
               </div>
 
