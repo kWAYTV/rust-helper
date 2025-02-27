@@ -10,17 +10,7 @@ export const metadata = createMetadata({
 export default function ExcavatorPage() {
   return (
     <div className='container mx-auto px-4 py-8 sm:px-6 lg:px-8'>
-      <div className='mx-auto max-w-5xl'>
-        <ExcavatorCalculator />
-
-        <div className='text-muted-foreground mt-8 text-sm'>
-          <p>
-            Note: All calculations are based on the standard yield rates in the
-            vanilla Rust game. Modded servers may have different resource yield
-            multipliers.
-          </p>
-        </div>
-      </div>
+      <ExcavatorCalculator />
     </div>
   );
 }
