@@ -49,14 +49,17 @@ export function CollectionDrawer() {
       direction='bottom'
     >
       <DrawerTrigger asChild>
-        <Button className='fixed bottom-4 left-1/2 z-40 -translate-x-1/2 border border-gray-700 bg-black px-4 py-5 text-white shadow-lg transition-all hover:bg-gray-900'>
-          <ShoppingBag className='mr-2 h-5 w-5 text-red-500' />
-          <span className='text-base font-medium text-white'>
-            Raid Collection
-          </span>
-          <Badge className='ml-2 bg-red-700 px-2 text-sm font-bold text-white'>
-            {totalItems}
-          </Badge>
+        <Button
+          className='border-primary/30 bg-background/95 hover:bg-primary/5 hover:border-primary/50 fixed right-4 bottom-16 z-40 flex items-center gap-2 rounded-full px-3 py-2 shadow-md backdrop-blur-sm transition-all'
+          variant='outline'
+        >
+          <ShoppingBag className='text-primary h-5 w-5' />
+          <span className='font-medium'>Raid Collection</span>
+          {totalItems > 0 && (
+            <Badge className='bg-primary text-primary-foreground ml-1 px-2 text-xs font-medium'>
+              {totalItems}
+            </Badge>
+          )}
         </Button>
       </DrawerTrigger>
       <DrawerContent className='border-border bg-background border-t'>

@@ -1,9 +1,12 @@
 import ClientDecayCalculator from '@/components/core/app/rust/decay/client-calculator';
+import { Card, CardContent } from '@/components/ui/card';
 
 export function DecayCalculator() {
   return (
-    <div className='container max-w-2xl py-6'>
-      <ClientDecayCalculator />
-    </div>
+    <Card className='w-full shadow-md'>
+      <CardContent className='p-6'>
+        <ClientDecayCalculator />
+      </CardContent>
+    </Card>
   );
 }
