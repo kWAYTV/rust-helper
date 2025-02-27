@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Link } from 'next-view-transitions';
 import * as React from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { Separator } from '@/components/ui/separator';
@@ -120,9 +121,17 @@ export function Navbar() {
               href='/'
               className='group relative flex items-center pl-1 sm:pl-0'
             >
-              <span className='from-foreground to-foreground/70 group-hover:to-primary/90 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent transition-all duration-300'>
-                Rust Helper
-              </span>
+              <div className='flex items-center'>
+                <span className='from-foreground to-foreground/70 group-hover:to-primary/90 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent transition-all duration-300'>
+                  Rust Helper
+                </span>
+                <Badge
+                  variant='secondary'
+                  className='ml-2 h-5 py-0 text-[10px] font-semibold uppercase'
+                >
+                  Beta
+                </Badge>
+              </div>
               <motion.span
                 className='bg-primary absolute -bottom-1 left-0 h-[2px] rounded-full'
                 initial={{ width: 0 }}
