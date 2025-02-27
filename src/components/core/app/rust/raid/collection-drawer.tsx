@@ -50,7 +50,7 @@ export function CollectionDrawer() {
     >
       <DrawerTrigger asChild>
         <Button
-          className='border-primary/30 bg-background/95 hover:bg-primary/5 hover:border-primary/50 fixed right-4 bottom-16 z-40 flex items-center gap-2 rounded-full px-3 py-2 shadow-md backdrop-blur-sm transition-all'
+          className='border-primary/30 bg-background/95 hover:bg-primary/5 hover:border-primary/50 fixed bottom-16 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 rounded-full px-3 py-2 shadow-md backdrop-blur-sm transition-all'
           variant='outline'
         >
           <ShoppingBag className='text-primary h-5 w-5' />

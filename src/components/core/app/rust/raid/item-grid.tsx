@@ -28,27 +28,31 @@ const ItemGrid = memo(function ItemGrid() {
 
   if (!activeCategory) {
     return (
-      <div className='flex flex-col items-center justify-center py-16 text-center'>
-        <p className='text-muted-foreground text-lg font-medium'>
-          Select a category to view items
-        </p>
-        <p className='text-muted-foreground mt-2 text-sm'>
-          Choose from walls, doors, and more
-        </p>
-      </div>
+      <Card className='w-full'>
+        <CardContent className='flex flex-col items-center justify-center py-16 text-center'>
+          <p className='text-muted-foreground text-lg font-medium'>
+            Select a category to view items
+          </p>
+          <p className='text-muted-foreground mt-2 text-sm'>
+            Choose from walls, doors, and more
+          </p>
+        </CardContent>
+      </Card>
     );
   }
 
   if (items.length === 0) {
     return (
-      <div className='py-12 text-center'>
-        <p className='text-muted-foreground'>No items in this category</p>
-      </div>
+      <Card className='w-full'>
+        <CardContent className='py-12 text-center'>
+          <p className='text-muted-foreground'>No items in this category</p>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className='grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
+    <div className='grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
       {items.map(item => {
         const quantity = collectionMap.get(item.id) || 0;
 
