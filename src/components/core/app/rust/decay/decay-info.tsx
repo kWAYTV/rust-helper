@@ -1,11 +1,11 @@
 'use client';
 
-import { Clock, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Calendar, Clock, RefreshCw } from 'lucide-react';
 import { memo } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import {
   Tooltip,
@@ -29,31 +29,35 @@ const DecayInfo = memo(function DecayInfo({ className }: DecayInfoProps) {
 
   return (
     <Card className={className}>
-      <CardContent className='pt-6'>
-        <div className='space-y-4'>
-          <div className='flex items-center justify-between'>
-            <h3 className='text-md font-medium'>Decay Information</h3>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant='outline'
-                    size='icon'
-                    className='h-7 w-7'
-                    onClick={() => window.location.reload()}
-                  >
-                    <RefreshCw className='h-4 w-4' />
-                    <span className='sr-only'>Refresh</span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Refresh calculations</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+      <CardHeader className='pb-3'>
+        <CardTitle className='flex items-center justify-between text-lg'>
+          <div className='flex items-center gap-2'>
+            <AlertTriangle className='text-primary h-5 w-5' />
+            <span>Decay Information</span>
           </div>
-
-          <div className='bg-card rounded-lg border p-4'>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant='outline'
+                  size='icon'
+                  className='h-7 w-7'
+                  onClick={() => window.location.reload()}
+                >
+                  <RefreshCw className='h-4 w-4' />
+                  <span className='sr-only'>Refresh</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Refresh calculations</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className='space-y-5'>
+          <div className='from-primary/5 to-background rounded-lg border bg-gradient-to-br p-4'>
             <div className='flex items-center gap-3'>
               <Badge variant='outline' className='px-3 py-1.5'>
                 {selectedMaterial.name}
@@ -64,19 +68,24 @@ const DecayInfo = memo(function DecayInfo({ className }: DecayInfoProps) {
             </div>
           </div>
 
-          <Separator />
+          <Separator className='bg-primary/10' />
 
-          <div className='grid grid-cols-2 gap-4'>
+          <div className='grid grid-cols-1 gap-5 md:grid-cols-2'>
             <div className='space-y-2'>
-              <div className='text-muted-foreground flex items-center gap-1.5 text-sm'>
-                <Clock className='text-primary h-3.5 w-3.5' />
+              <div className='text-muted-foreground flex items-center gap-1.5 text-sm font-medium'>
+                <Clock className='text-primary h-4 w-4' />
                 <span>Time until decay:</span>
               </div>
-              <p className='text-lg font-semibold'>{decayInfo.timeLeft}</p>
+              <p className='text-2xl font-bold tracking-tight'>
+                {decayInfo.timeLeft}
+              </p>
             </div>
 
             <div className='space-y-2'>
-              <p className='text-muted-foreground text-sm'>Decay date:</p>
+              <div className='text-muted-foreground flex items-center gap-1.5 text-sm font-medium'>
+                <Calendar className='text-primary h-4 w-4' />
+                <span>Decay date:</span>
+              </div>
               <p className='text-md font-medium'>{decayInfo.decayDateTime}</p>
             </div>
           </div>

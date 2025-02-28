@@ -1,6 +1,6 @@
 'use client';
 
-import { Info } from 'lucide-react';
+import { Info, Shield } from 'lucide-react';
 import { memo } from 'react';
 
 import {
@@ -36,14 +36,18 @@ const MaterialSelector = memo(function MaterialSelector({
 
   return (
     <div className={className}>
-      <div className='space-y-2'>
+      <div className='space-y-4'>
         <div className='flex items-center justify-between'>
-          <label
-            htmlFor='material-select'
-            className='text-sm leading-none font-medium'
-          >
-            Material
-          </label>
+          <div className='flex items-center gap-2'>
+            <Shield className='text-primary h-4 w-4' />
+            <label
+              htmlFor='material-select'
+              className='text-sm leading-none font-medium'
+            >
+              Structure Material
+            </label>
+          </div>
+
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -55,21 +59,43 @@ const MaterialSelector = memo(function MaterialSelector({
             </Tooltip>
           </TooltipProvider>
         </div>
+
         <Select
           value={selectedMaterial?.name || ''}
           onValueChange={handleMaterialChange}
         >
-          <SelectTrigger id='material-select'>
+          <SelectTrigger
+            id='material-select'
+            className='from-background to-muted/10 bg-gradient-to-r'
+          >
             <SelectValue placeholder='Select material' />
           </SelectTrigger>
           <SelectContent>
             {materials.map((material: Material) => (
-              <SelectItem key={material.name} value={material.name}>
-                {material.name}
+              <SelectItem
+                key={material.name}
+                value={material.name}
+                className='flex items-center gap-2'
+              >
+                {material.name}{' '}
+                <span className='text-muted-foreground text-xs'>
+                  ({material.maxHp} HP)
+                </span>
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
+
+        {selectedMaterial && (
+          <p className='text-muted-foreground text-xs'>
+            Max Health:{' '}
+            <span className='font-medium'>{selectedMaterial.maxHp} HP</span> •
+            Decay Time:{' '}
+            <span className='font-medium'>
+              {selectedMaterial.decayTime} hours
+            </span>
+          </p>
+        )}
       </div>
     </div>
   );

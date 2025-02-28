@@ -1,6 +1,6 @@
 'use client';
 
-import { Info, Trash2, Undo2 } from 'lucide-react';
+import { Heart, Info, Trash2, Undo2 } from 'lucide-react';
 import { memo, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -60,16 +60,27 @@ const HpInput = memo(function HpInput({ className }: HpInputProps) {
       ? (currentHp / selectedMaterial.maxHp) * 100
       : 0;
 
+  const getHealthColor = () => {
+    if (!selectedMaterial || currentHp === 0) return 'text-muted-foreground';
+    if (progressPercentage > 66) return 'text-green-500';
+    if (progressPercentage > 33) return 'text-amber-500';
+    return 'text-red-500';
+  };
+
   return (
     <div className={className}>
-      <div className='space-y-2'>
+      <div className='space-y-4'>
         <div className='flex items-center justify-between'>
-          <label
-            htmlFor='hp-input'
-            className='text-sm leading-none font-medium'
-          >
-            Current HP
-          </label>
+          <div className='flex items-center gap-2'>
+            <Heart className='text-primary h-4 w-4' />
+            <label
+              htmlFor='hp-input'
+              className='text-sm leading-none font-medium'
+            >
+              Current Health
+            </label>
+          </div>
+
           <div className='flex space-x-2'>
             <TooltipProvider>
               <Tooltip>
@@ -77,7 +88,7 @@ const HpInput = memo(function HpInput({ className }: HpInputProps) {
                   <Button
                     variant='outline'
                     size='icon'
-                    className='h-6 w-6'
+                    className='h-7 w-7'
                     onClick={handleClearSelections}
                     disabled={!selectedMaterial || currentHp === 0}
                   >
@@ -96,7 +107,7 @@ const HpInput = memo(function HpInput({ className }: HpInputProps) {
                   <Button
                     variant='outline'
                     size='icon'
-                    className='h-6 w-6'
+                    className='h-7 w-7'
                     onClick={handleUndoHpChange}
                     disabled={previousHp === 0}
                   >
@@ -121,26 +132,41 @@ const HpInput = memo(function HpInput({ className }: HpInputProps) {
             </TooltipProvider>
           </div>
         </div>
-        <div className='flex items-center space-x-2'>
-          <Input
-            id='hp-input'
-            type='number'
-            placeholder='Enter current HP'
-            value={inputValue}
-            onChange={handleHpChange}
-            disabled={!selectedMaterial}
-            min={1}
-            max={selectedMaterial?.maxHp || 0}
-          />
-          {selectedMaterial && (
-            <span className='text-muted-foreground text-sm whitespace-nowrap'>
-              / {selectedMaterial.maxHp}
-            </span>
+
+        <div className='from-background to-muted/10 rounded-md bg-gradient-to-r p-4'>
+          <div className='flex items-center gap-3'>
+            <Input
+              id='hp-input'
+              type='number'
+              placeholder='Enter current HP'
+              value={inputValue}
+              onChange={handleHpChange}
+              disabled={!selectedMaterial}
+              min={1}
+              max={selectedMaterial?.maxHp || 0}
+              className='bg-background/80 text-center text-lg font-medium'
+            />
+
+            {selectedMaterial && (
+              <span className='text-muted-foreground whitespace-nowrap'>
+                /{' '}
+                <span className='font-semibold'>{selectedMaterial.maxHp}</span>
+              </span>
+            )}
+          </div>
+
+          {selectedMaterial && currentHp > 0 && (
+            <div className='mt-3 space-y-1'>
+              <div className='flex justify-between text-xs'>
+                <span className='text-muted-foreground'>Health Remaining:</span>
+                <span className={getHealthColor()}>
+                  {Math.round(progressPercentage)}%
+                </span>
+              </div>
+              <Progress value={progressPercentage} className='h-2' />
+            </div>
           )}
         </div>
-        {selectedMaterial && currentHp > 0 && (
-          <Progress value={progressPercentage} className='h-2' />
-        )}
       </div>
     </div>
   );

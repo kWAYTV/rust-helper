@@ -5,15 +5,15 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export function DecayCalculator() {
   return (
-    <div className='w-full max-w-md'>
-      <div className='mb-6 text-center'>
+    <div className='w-full max-w-3xl'>
+      <div className='mb-8 text-center'>
         <h1 className='text-3xl font-bold tracking-tight'>Decay Calculator</h1>
         <p className='text-muted-foreground mt-2'>
           Calculate when your structures will decay in Rust
         </p>
       </div>
 
-      <Card className='w-full shadow-md'>
+      <Card className='w-full overflow-hidden shadow-md'>
         <CardContent className='p-6'>
           <ClientDecayCalculator />
         </CardContent>
