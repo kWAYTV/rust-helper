@@ -59,18 +59,16 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
         `Adjusted HP from ${state.currentHp} to ${newHp} for ${material.name}`
       );
 
-      // Simulate a small delay to show loading state
-      setTimeout(() => {
-        set({
-          selectedMaterial: material,
-          currentHp: newHp,
-          previousMaterial,
-          previousHp,
-          error: '',
-          decayInfo: calculateDecay(material, newHp),
-          isLoading: false
-        });
-      }, 300);
+      // Remove artificial delay
+      set({
+        selectedMaterial: material,
+        currentHp: newHp,
+        previousMaterial,
+        previousHp,
+        error: '',
+        decayInfo: calculateDecay(material, newHp),
+        isLoading: false
+      });
     } else {
       set({
         selectedMaterial: material,
@@ -134,26 +132,24 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
       return;
     }
 
-    // Simulate a small delay to show loading state
-    setTimeout(() => {
-      set({
-        currentHp: hp,
-        error: '',
-        decayInfo:
-          hp > 0
-            ? calculateDecay(selectedMaterial, hp)
-            : {
-                timeLeft: '',
-                decayDateTime: ''
-              },
-        isLoading: false
-      });
+    // Remove artificial delay
+    set({
+      currentHp: hp,
+      error: '',
+      decayInfo:
+        hp > 0
+          ? calculateDecay(selectedMaterial, hp)
+          : {
+              timeLeft: '',
+              decayDateTime: ''
+            },
+      isLoading: false
+    });
 
-      // Show toast for significant HP changes
-      if (hp % 500 === 0 && hp > 0) {
-        toast.info(`Set HP to ${hp}`);
-      }
-    }, 300);
+    // Show toast for significant HP changes
+    if (hp % 500 === 0 && hp > 0) {
+      toast.info(`Set HP to ${hp}`);
+    }
   },
 
   clear: () => {
@@ -177,23 +173,21 @@ export const useDecayStore = create<DecayStore>((set, get) => ({
     if (state.previousMaterial && state.previousHp > 0) {
       set({ isLoading: true });
 
-      // Simulate a small delay to show loading state
-      setTimeout(() => {
-        if (state.previousMaterial) {
-          set({
-            selectedMaterial: state.previousMaterial,
-            currentHp: state.previousHp,
-            previousMaterial: null,
-            previousHp: 0,
-            error: '',
-            decayInfo: calculateDecay(state.previousMaterial, state.previousHp),
-            isLoading: false
-          });
-          toast.info(
-            `Reverted back to ${state.previousMaterial.name} with ${state.previousHp} HP`
-          );
-        }
-      }, 300);
+      // Remove artificial delay
+      if (state.previousMaterial) {
+        set({
+          selectedMaterial: state.previousMaterial,
+          currentHp: state.previousHp,
+          previousMaterial: null,
+          previousHp: 0,
+          error: '',
+          decayInfo: calculateDecay(state.previousMaterial, state.previousHp),
+          isLoading: false
+        });
+        toast.info(
+          `Reverted back to ${state.previousMaterial.name} with ${state.previousHp} HP`
+        );
+      }
     }
   },
 
