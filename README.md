@@ -19,13 +19,13 @@ utilities to optimize gameplay. Built with Next.js 15 and modern React patterns.
 1. **Install dependencies**:
 
    ```bash
-   pnpm install
+   bun install
    ```
 
 2. **Run development server**:
 
    ```bash
-   pnpm dev
+   bun dev
    ```
 
 3. **Access the application**:  
